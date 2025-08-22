@@ -1,0 +1,10 @@
+*~
+.DS_Store
+.vscode
+*.code-workspace
+
+# Node.js
+.pnpm-store
+
+# Biome.js ignore biome.jsonc
+biome.jsonc

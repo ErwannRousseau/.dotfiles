@@ -1,0 +1,30 @@
+[user]
+	name = ErwannRousseau
+	email = erwann.rousseau@icloud.com
+	signingKey = /Users/erwannrousseau/.ssh/id_ed25519.pub
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	excludesfile = /Users/erwannrousseau/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/erwannrousseau/.stCommitMsg
+	gpgsign = true
+[push]
+	autoSetupRemote = true
+[gitbutler]
+	aiModelProvider = openai
+[rerere]
+	enabled = true
+[maintenance]
+	repo = /Users/erwannrousseau/Developer/GitHub/portfolio
+[gpg]
+	format = ssh
