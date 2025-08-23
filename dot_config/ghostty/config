@@ -1,0 +1,24 @@
+# --- Theme ---
+theme = liquid-latte
+window-theme = light
+macos-titlebar-style = transparent
+
+# --- Liquid glass ---
+background-opacity = 0.88
+background-blur = 22
+
+# --- Confort ---
+window-padding-x = 8
+window-padding-y = 8
+copy-on-select = true
+bold-is-bright = true
+
+# --- Keybind ---
+keybind = ctrl+h=goto_split:left
+keybind = ctrl+j=goto_split:bottom
+keybind = ctrl+k=goto_split:top
+keybind = ctrl+l=goto_split:right
+keybind = cmd+h=new_split:left
+keybind = cmd+j=new_split:down
+keybind = cmd+h=new_split:left
+keybind = cmd+k=new_split:right

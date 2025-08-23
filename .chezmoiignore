@@ -1,3 +1,5 @@
 install-packages.sh
 dot_config/nvim/lazy-lock.json
+.DS_Store
+**/.DS_Store
 
