@@ -19,6 +19,7 @@ brew "watchman"
 brew "yarn"
 brew "oven-sh/bun/bun", link: false
 brew "symfony-cli/tap/symfony-cli"
+cask "ghostty"
 cask "orbstack"
 cask "rectangle"
 cask "visual-studio-code"
