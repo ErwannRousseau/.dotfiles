@@ -22,6 +22,7 @@ brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 brew "oven-sh/bun/bun", link: false
 brew "symfony-cli/tap/symfony-cli"
+cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
 cask "orbstack"
 cask "rectangle"
