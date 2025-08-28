@@ -12,6 +12,7 @@ window-padding-x = 8
 window-padding-y = 8
 copy-on-select = true
 bold-is-bright = true
+macos-option-as-alt = left
 
 # --- Keybind ---
 keybind = cmd+shift+h=goto_split:left
