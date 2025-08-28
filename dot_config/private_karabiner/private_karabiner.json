@@ -1,6 +1,16 @@
 {
     "profiles": [
         {
+            "devices": [
+                {
+                    "identifiers": {
+                        "device_address": "db-75-92-30-0f-70",
+                        "is_keyboard": true,
+                        "is_pointing_device": true
+                    },
+                    "ignore": false
+                }
+            ],
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
