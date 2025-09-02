@@ -6,10 +6,6 @@ return {
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require("catppuccin").setup({ flavour = "latte", auto_integrations = true })
-      local palettes = require("catppuccin.palettes")
-      if not palettes.get and palettes.get_palette then
-        palettes.get = palettes.get_palette -- shim pour l’API attendue par LazyVim
-      end
     end,
   },
   -- TODO: Remove this once https://github.com/LazyVim/LazyVim/pull/6354 is merged
