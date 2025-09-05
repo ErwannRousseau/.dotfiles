@@ -36,6 +36,8 @@ plugins=(
 # ------- Load oh-my-zsh (this runs compinit once, no need to run it manually) -------
 source "$ZSH/oh-my-zsh.sh"
 
+# ------- fzf configuration -------
+source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
 export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
 export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down"
@@ -58,6 +60,12 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # ------- User configuration -------
 export ARCHFLAGS="-arch arm64"
+
+# ------- zsh options -------
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
 # Aliases
 alias zshconfig="nvim ~/.zshrc"
@@ -84,6 +92,12 @@ esac
 
 # ------- Ruby (rbenv) -------
 eval "$(rbenv init -)"
+
+# ------- Android SDK -------
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # ------- zsh-autosuggestions -------
 # Should be loaded AFTER oh-my-zsh
