@@ -8,3 +8,6 @@
 
 # Biome.js ignore biome.jsonc
 biome.jsonc
+
+# OpenCode AI
+AGENTS.md
