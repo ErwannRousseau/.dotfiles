@@ -29,7 +29,7 @@ HIST_STAMPS="dd/mm/yyyy"
 plugins=(
   git git-flow git-flow-completion
   pnpm yarn npm brew macos vscode
-  docker multipass globalias
+  docker docker-compose multipass globalias
   fzf-tab
 )
 
