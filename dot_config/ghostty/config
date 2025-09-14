@@ -26,3 +26,4 @@ keybind = cmd+l=new_split:right
 
 # --- Font ---
 font-family = "JetBrains Mono"
+font-feature = -calt,-liga,-dlig
