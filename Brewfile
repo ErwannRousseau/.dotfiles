@@ -5,7 +5,6 @@ tap "stripe/stripe-cli"
 tap "symfony-cli/tap"
 tap "thezoraiz/ascii-image-converter"
 brew "bat"
-brew "biome"
 brew "chezmoi"
 brew "cocoapods"
 brew "php", link: false
