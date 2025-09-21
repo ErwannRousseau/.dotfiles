@@ -11,3 +11,6 @@ biome.jsonc
 
 # OpenCode AI
 AGENTS.md
+
+# LazyVim
+.lazy.lua
