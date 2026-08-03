@@ -1,4 +1,4 @@
-@/Users/erwannrousseau/.codex/RTK.md
+# Codex preferences
 
 ## Tool preferences
 
