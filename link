@@ -32,10 +32,10 @@ for target in \
   "$HOME/Library/Application Support/Code/User/snippets/fetch.code-snippets" \
   "$HOME/Library/Application Support/Code/User/snippets/javascript.json" \
   "$HOME/Library/Application Support/Code/User/snippets/typescriptreact.code-snippets"; do
-  [[ -L "$target" && "$(readlink "$target")" == *"/packages/vscode/"* ]] && rm "$target"
+  [[ -L "$target" && ( "$(readlink "$target")" == *"/packages/vscode/"* || "$(readlink "$target")" == *"/packages/editor/vscode/Library/"* ) ]] && rm "$target"
 done
 
 printf '%s==> Linking dotfiles%s\n' "$blue" "$reset"
 stow --dir "$repo_dir/packages" --target "$HOME" --no-folding "${stow_options[@]}" shell git editor terminal
-stow --dir "$repo_dir/packages/editor" --target "$HOME" --no-folding "${stow_options[@]}" vscode
+stow --dir "$repo_dir/packages/editor" --target "$HOME/Library/Application Support/Code/User" --no-folding "${stow_options[@]}" vscode
 printf '%s✓ Dotfiles linked%s\n' "$green" "$reset"
