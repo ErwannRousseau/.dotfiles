@@ -36,7 +36,7 @@ if [[ -f "$repo_dir/Brewfile.local" ]]; then
 fi
 
 label 'Stow links'
-if stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal &&
+if stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal agents &&
   stow --dir "$repo_dir/packages/editor" --target "$HOME/Library/Application Support/Code/User" --no-folding --simulate --restow vscode; then
   ok
 else
