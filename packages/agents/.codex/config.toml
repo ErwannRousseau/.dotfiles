@@ -1,0 +1,152 @@
+model_context_window = 250000
+model_auto_compact_token_limit = 200000
+model = "gpt-5.6-terra"
+personality = "pragmatic"
+approval_policy = "never"
+approvals_reviewer = "user"
+sandbox_mode = "danger-full-access"
+file_opener = "vscode"
+network_access = "enabled"
+model_reasoning_effort = "high"
+service_tier = "default"
+[agents]
+enabled = true
+max_depth = 2
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "max"
+
+[features]
+goals = true
+unified_exec = true
+child_agents_md = true
+multi_agent = true
+plugins = true
+plugin_hooks = true
+hooks = true
+js_repl = false
+memories = true
+chronicle = false
+default_mode_request_user_input = true
+prevent_idle_sleep = true
+artifact = true
+terminal_visualization_instructions = true
+enable_mcp_apps = true
+secret_auth_storage = true
+realtime_conversation = true
+concurrent_reasoning_summaries = true
+current_time_reminder = true
+
+[features.multi_agent_v2]
+enabled = true
+max_concurrent_threads_per_session = 1000
+
+[memories]
+generate_memories = false
+use_memories = false
+
+[marketplaces]
+[marketplaces.context-mode]
+last_updated = "2026-08-03T15:05:16Z"
+last_revision = "d3127f862922d87b3356ae3f5d3ca956373c4122"
+source_type = "git"
+source = "https://github.com/mksglu/context-mode.git"
+
+[marketplaces.n8n-io]
+last_updated = "2026-07-27T16:59:53Z"
+last_revision = "046c330c9308bbfc54ceab1adbe3d8fc6bebc8fa"
+source_type = "git"
+source = "https://github.com/n8n-io/skills.git"
+
+[marketplaces.ponytail]
+last_updated = "2026-07-16T07:06:03Z"
+last_revision = "16f29800fd2681bdf24f3eb4ccffe38be3baec6b"
+source_type = "git"
+source = "https://github.com/DietrichGebert/ponytail.git"
+
+[mcp_servers]
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"
+
+[mcp_servers.n8n-mcp]
+url = "https://n8n.knpnet.net/mcp-server/http"
+
+[mcp_servers.playwright]
+args = ["@playwright/mcp@latest"]
+command = "npx"
+startup_timeout_sec = 15
+
+[mcp_servers.semble]
+command = "uvx"
+args = ["--from", "semble[mcp]", "semble"]
+
+[plugins]
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."build-web-apps@openai-curated"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."codex-security@openai-curated"]
+enabled = true
+
+[plugins."context-mode@context-mode"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."expo@openai-curated"]
+enabled = true
+
+[plugins."figma@openai-curated"]
+enabled = true
+
+[plugins."n8n-skills@n8n-io"]
+enabled = true
+
+[plugins."omo@sisyphuslabs"]
+enabled = true
+
+[plugins."omo@sisyphuslabs".mcp_servers]
+[plugins."omo@sisyphuslabs".mcp_servers.codegraph]
+enabled = true
+
+[plugins."omo@sisyphuslabs".mcp_servers.codegraph.tools]
+[plugins."omo@sisyphuslabs".mcp_servers.codegraph.tools.codegraph_explore]
+approval_mode = "approve"
+
+[plugins."omo@sisyphuslabs".mcp_servers.context7]
+enabled = true
+
+[plugins."omo@sisyphuslabs".mcp_servers.git_bash]
+enabled = false
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."ponytail@ponytail"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
