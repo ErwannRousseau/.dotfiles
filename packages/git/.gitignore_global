@@ -1,0 +1,36 @@
+*~
+.DS_Store
+.vscode
+*.code-workspace
+
+# Node.js
+.pnpm-store
+
+# Biome.js ignore biome.jsonc
+biome.jsonc
+
+# OpenCode AI
+.agents/react-doctor/AGENTS.md
+
+opencode.json
+sessions
+.oc
+.sisyphus
+
+# Claude
+.claude
+.omc
+
+# Codex
+.omx
+.omo
+
+# PHP
+.phpactor.json
+
+# LazyVim
+.lazy.lua
+
+
+# Deliver
+.agents/skills/pr-review-feedback-handler/SKILL.md

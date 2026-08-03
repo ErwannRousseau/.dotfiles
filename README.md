@@ -1,21 +1,25 @@
-# Install 
+# dotfiles
+
+GNU Stow manages the shared configuration. The repository lives at `~/dotfiles`.
+Install [Homebrew](https://brew.sh/) first.
 
 ```bash
-brew install chezmoi
+git clone git@github.com:ErwannRousseau/.dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./bootstrap
 ```
+
+## Commands
 
 ```bash
-chezmoi init --apply https://github.com/ErwannRousseau/.dotfiles.git
+./link  # refresh symlinks
+./check # verify Brewfile and Stow deployment
 ```
 
-# Script to run 
+On an existing Mac, use `./link --adopt` once to take its current configuration into the clone, then review the resulting Git diff.
 
-```bash
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-```
+`Brewfile` is shared. Add machine-only packages to the ignored `Brewfile.local`.
 
-```bash
-chmod go-w "$(brew --prefix)/share"
-chmod -R go-w "$(brew --prefix)/share/zsh"
-```
+`~/.config/zsh/local.zsh` is local and ignored. Authenticate GitHub separately with `gh auth login`; no credential or `hosts.yml` belongs in this repository.
 
+Karabiner's `karabiner.json` remains local because it contains per-device identifiers.
