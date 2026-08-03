@@ -26,13 +26,11 @@ plugins=(
   bun
 )
 
-# Load fzf before fzf-tab so fzf-tab owns Tab after Oh My Zsh initializes.
-source <(fzf --zsh)
-
 # ------- Load oh-my-zsh (this runs compinit once, no need to run it manually) -------
 source "$ZSH/oh-my-zsh.sh"
 
 # ------- fzf configuration -------
+source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
 export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
 export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down"
