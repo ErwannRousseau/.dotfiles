@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
+  blue=$'\033[34m'
+  green=$'\033[32m'
+  red=$'\033[31m'
+  reset=$'\033[0m'
+else
+  blue= green= red= reset=
+fi
+
+expect() {
+  [[ "$(defaults read "$1" "$2")" == "$3" ]]
+}
+
+case "${1:-}" in
+  "")
+    printf '%s==> Applying macOS defaults%s\n' "$blue" "$reset"
+    defaults write -g ApplePressAndHoldEnabled -bool false
+    defaults write -g InitialKeyRepeat -int 15
+    defaults write -g KeyRepeat -int 2
+
+    defaults write com.apple.finder AppleShowAllExtensions -bool true
+    defaults write com.apple.finder ShowPathbar -bool true
+    defaults write com.apple.finder _FXSortFoldersFirst -bool true
+    defaults write com.apple.finder AppleShowAllFiles -bool true
+
+    defaults write com.apple.dock autohide -bool true
+    defaults write com.apple.dock autohide-delay -float 0
+    defaults write com.apple.dock show-recents -bool false
+
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+    defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+    killall Dock Finder >/dev/null 2>&1 || true
+    printf '%s✓ macOS defaults applied%s\n' "$green" "$reset"
+    ;;
+  --check)
+    printf '%s==> Checking macOS defaults%s\n' "$blue" "$reset"
+    expect -g ApplePressAndHoldEnabled 0
+    expect -g InitialKeyRepeat 15
+    expect -g KeyRepeat 2
+    expect com.apple.finder AppleShowAllExtensions 1
+    expect com.apple.finder ShowPathbar 1
+    expect com.apple.finder _FXSortFoldersFirst 1
+    expect com.apple.finder AppleShowAllFiles 1
+    expect com.apple.dock autohide 1
+    expect com.apple.dock autohide-delay 0
+    expect com.apple.dock show-recents 0
+    expect com.apple.desktopservices DSDontWriteNetworkStores 1
+    expect com.apple.desktopservices DSDontWriteUSBStores 1
+    printf '%s✓ macOS defaults match%s\n' "$green" "$reset"
+    ;;
+  *)
+    printf '%sUsage: %s [--check]%s\n' "$red" "$0" "$reset" >&2
+    exit 2
+    ;;
+esac

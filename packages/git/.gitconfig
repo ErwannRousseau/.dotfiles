@@ -1,7 +1,5 @@
-[user]
-	name = ErwannRousseau
-	email = erwann.rousseau@icloud.com
-	signingKey = ~/.ssh/id_ed25519.pub
+[include]
+	path = ~/.gitconfig.local
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

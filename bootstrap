@@ -3,15 +3,48 @@ set -euo pipefail
 
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
 
-if ! command -v brew >/dev/null 2>&1; then
-  printf 'Install Homebrew first: https://brew.sh\n' >&2
+if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
+  blue=$'\033[34m'
+  green=$'\033[32m'
+  red=$'\033[31m'
+  reset=$'\033[0m'
+else
+  blue= green= red= reset=
+fi
+
+info() { printf '%s==> %s%s\n' "$blue" "$1" "$reset"; }
+success() { printf '%s✓ %s%s\n' "$green" "$1" "$reset"; }
+error() { printf '%s✗ %s%s\n' "$red" "$1" "$reset" >&2; }
+
+if ! xcode-select -p >/dev/null 2>&1; then
+  error 'Install Xcode Command Line Tools first: xcode-select --install'
   exit 1
 fi
 
+if ! command -v brew >/dev/null 2>&1; then
+  info 'Installing Homebrew'
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  else
+    error 'Homebrew installation failed'
+    exit 1
+  fi
+fi
+
+info 'Installing Brewfile packages'
 brew bundle --file="$repo_dir/Brewfile"
 
 if [[ -f "$repo_dir/Brewfile.local" ]]; then
+  info 'Installing local Brewfile packages'
   brew bundle --file="$repo_dir/Brewfile.local"
 fi
 
+info 'Applying macOS defaults'
+"$repo_dir/macos"
+info 'Linking dotfiles'
 "$repo_dir/link"
+success 'Bootstrap complete'

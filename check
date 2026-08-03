@@ -2,10 +2,54 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
-brew bundle check --file="$repo_dir/Brewfile"
+status=0
 
-if [[ -f "$repo_dir/Brewfile.local" ]]; then
-  brew bundle check --file="$repo_dir/Brewfile.local"
+if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
+  blue=$'\033[34m'
+  green=$'\033[32m'
+  red=$'\033[31m'
+  reset=$'\033[0m'
+else
+  blue= green= red= reset=
 fi
 
-stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal
+label() { printf '%s%s:%s ' "$blue" "$1" "$reset"; }
+ok() { printf '%sok%s\n' "$green" "$reset"; }
+bad() { printf '%s%s%s\n' "$red" "$1" "$reset"; }
+
+label 'Homebrew bundle'
+if brew bundle check --file="$repo_dir/Brewfile"; then
+  ok
+else
+  bad 'missing'
+  status=1
+fi
+
+if [[ -f "$repo_dir/Brewfile.local" ]]; then
+  label 'Local Homebrew bundle'
+  if brew bundle check --file="$repo_dir/Brewfile.local"; then
+    ok
+  else
+    bad 'missing'
+    status=1
+  fi
+fi
+
+label 'Stow links'
+if stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal; then
+  ok
+else
+  bad 'broken'
+  status=1
+fi
+
+label 'macOS defaults'
+if "$repo_dir/macos" --check; then
+  ok
+else
+  bad 'drifted'
+  status=1
+fi
+
+(( status == 0 )) && printf '%s✓ All checks passed%s\n' "$green" "$reset"
+exit "$status"
