@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_dir="$(cd "$(dirname "$0")" && pwd)"
+brew bundle check --file="$repo_dir/Brewfile"
+
+if [[ -f "$repo_dir/Brewfile.local" ]]; then
+  brew bundle check --file="$repo_dir/Brewfile.local"
+fi
+
+stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal

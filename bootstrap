@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_dir="$(cd "$(dirname "$0")" && pwd)"
+
+if ! command -v brew >/dev/null 2>&1; then
+  printf 'Install Homebrew first: https://brew.sh\n' >&2
+  exit 1
+fi
+
+brew bundle --file="$repo_dir/Brewfile"
+
+if [[ -f "$repo_dir/Brewfile.local" ]]; then
+  brew bundle --file="$repo_dir/Brewfile.local"
+fi
+
+"$repo_dir/link"
