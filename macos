@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+repo_dir="$(cd "$(dirname "$0")" && pwd)"
+neovim_finder="$repo_dir/scripts/macos/neovim-finder/install.zsh"
+
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
   blue=$'\033[34m'
   green=$'\033[32m'
@@ -32,6 +35,7 @@ case "${1:-}" in
 
     defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
     defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+    "$neovim_finder"
     killall Dock Finder >/dev/null 2>&1 || true
     printf '%s✓ macOS defaults applied%s\n' "$green" "$reset"
     ;;
@@ -49,6 +53,7 @@ case "${1:-}" in
     expect com.apple.dock show-recents 0
     expect com.apple.desktopservices DSDontWriteNetworkStores 1
     expect com.apple.desktopservices DSDontWriteUSBStores 1
+    "$neovim_finder" --check
     printf '%s✓ macOS defaults match%s\n' "$green" "$reset"
     ;;
   *)

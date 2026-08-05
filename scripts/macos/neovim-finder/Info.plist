@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.erwannrousseau.neovim-finder</string>
+	<key>CFBundleName</key>
+	<string>Neovim Finder</string>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Neovim Finder needs to control Ghostty to open files in Neovim.</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>md</string>
+				<string>yaml</string>
+				<string>yml</string>
+				<string>txt</string>
+				<string>json</string>
+				<string>toml</string>
+				<string>ini</string>
+				<string>conf</string>
+				<string>xml</string>
+				<string>csv</string>
+				<string>log</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>Neovim text and configuration files</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+		</dict>
+	</array>
+</dict>
+</plist>

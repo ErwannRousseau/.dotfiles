@@ -10,7 +10,7 @@ cd ~/dotfiles
 
 `bootstrap` requires Xcode Command Line Tools. Install them once with
 `xcode-select --install`; it installs Homebrew when absent, then applies the
-package bundle, macOS defaults, and Stow links.
+package bundle, macOS defaults, Finder-to-Neovim associations, and Stow links.
 
 ## Commands
 
@@ -19,6 +19,11 @@ package bundle, macOS defaults, and Stow links.
 ./check # status: Homebrew, Stow, macOS defaults
 ./macos # reapply macOS defaults
 ```
+
+`./macos` also builds `~/Applications/Neovim Finder.app`, registers it with
+LaunchServices, and makes supported text, configuration, and dotfiles open in
+Neovim through Ghostty. It requires a one-time macOS Automation authorization
+for Neovim Finder to control Ghostty.
 
 On an existing Mac, use `./link --adopt` once to take its current configuration into the clone, then review the resulting Git diff.
 
