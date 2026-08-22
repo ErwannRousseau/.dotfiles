@@ -1,19 +1,42 @@
 model_context_window = 250000
 model_auto_compact_token_limit = 200000
-model = "gpt-5.6-terra"
+model = "gpt-5.6-luna"
 personality = "pragmatic"
 approval_policy = "never"
 approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
 file_opener = "vscode"
 network_access = "enabled"
+notify = [ "/Users/erwannrousseau/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended" ]
 model_reasoning_effort = "high"
 service_tier = "default"
+
 [agents]
 enabled = true
 max_depth = 2
 default_subagent_model = "gpt-5.6-luna"
 default_subagent_reasoning_effort = "max"
+
+[desktop]
+selected-avatar-id = "custom:mister-kind"
+preventSleepWhileRunning = true
+show-context-window-usage = true
+composerEnterBehavior = "cmdIfMultiline"
+dictationDictionary = []
+git-branch-prefix = "feature/"
+git-show-sidebar-pr-icons = true
+git-pr-instructions = "write it in english \n\nfollow this pattern \n\n## Summary \n\n## Details\n\nCloses : [tickets number] (when it's available)"
+git-commit-instructions = "follow conventional commit"
+followUpQueueMode = "queue"
+dock-icon-preference = "codex-system"
+conversationDetailMode = "STEPS_COMMANDS"
+enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra", "max"]
+git-pull-request-merge-method = "squash"
+reviewDelivery = "detached"
+realtimeVoiceScreenContextEnabled = true
+
+[desktop.open-in-target-preferences]
+global = "ghostty"
 
 [features]
 goals = true
@@ -36,20 +59,19 @@ realtime_conversation = true
 concurrent_reasoning_summaries = true
 current_time_reminder = true
 
+[memories]
+generate_memories = true
+use_memories = true
+
+[notice]
+hide_world_writable_warning = true
+hide_full_access_warning = true
+
 [features.multi_agent_v2]
 enabled = true
 max_concurrent_threads_per_session = 1000
 
-[memories]
-generate_memories = false
-use_memories = false
-
-[marketplaces]
-[marketplaces.context-mode]
-last_updated = "2026-08-03T15:05:16Z"
-last_revision = "d3127f862922d87b3356ae3f5d3ca956373c4122"
-source_type = "git"
-source = "https://github.com/mksglu/context-mode.git"
+[hooks.state]
 
 [marketplaces.n8n-io]
 last_updated = "2026-07-27T16:59:53Z"
@@ -57,29 +79,84 @@ last_revision = "046c330c9308bbfc54ceab1adbe3d8fc6bebc8fa"
 source_type = "git"
 source = "https://github.com/n8n-io/skills.git"
 
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/Users/erwannrousseau/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-08-20T06:52:07Z"
+source_type = "local"
+source = "/Users/erwannrousseau/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
 [marketplaces.ponytail]
-last_updated = "2026-07-16T07:06:03Z"
-last_revision = "16f29800fd2681bdf24f3eb4ccffe38be3baec6b"
+last_updated = "2026-08-09T12:33:38Z"
+last_revision = "2ed6c52c9d7e5e56942508591085fd45dea277d3"
 source_type = "git"
 source = "https://github.com/DietrichGebert/ponytail.git"
 
-[mcp_servers]
+[marketplaces.context-mode]
+last_updated = "2026-08-20T07:06:23Z"
+last_revision = "4d44f877c5f6b506c55a153548e7dea3139fe229"
+source_type = "git"
+source = "https://github.com/mksglu/context-mode.git"
+
+# MCP servers
+
+[mcp_servers.semble]
+command = "uvx"
+args = ["--from", "semble[mcp]==0.5.5", "semble"]
+
+[mcp_servers.graft]
+command = "graft"
+args = ["mcp"]
+
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
+enabled = false
+
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
 
 [mcp_servers.n8n-mcp]
 url = "https://n8n.knpnet.net/mcp-server/http"
 
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/erwannrousseau/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/erwannrousseau/.codex"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_TINYSKY_ENABLED = "0"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.818.41509"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/erwannrousseau/.codex/plugins/cache/openai-bundled/browser/26.818.41509/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+
 [mcp_servers.playwright]
-args = ["@playwright/mcp@latest"]
+args = [ "@playwright/mcp@latest" ]
 command = "npx"
 startup_timeout_sec = 15
 
-[mcp_servers.semble]
-command = "uvx"
-args = ["--from", "semble[mcp]", "semble"]
+[mcp_servers.notion]
+url = "https://mcp.notion.com/mcp"
 
-[plugins]
+[mcp_servers.slides]
+url = "https://mcp.slides.com/"
+bearer_token_env_var = "SLIDES_API_KEY"
+
+# Plugins
+
 [plugins."browser@openai-bundled"]
 enabled = true
 
@@ -107,23 +184,6 @@ enabled = true
 [plugins."n8n-skills@n8n-io"]
 enabled = true
 
-[plugins."omo@sisyphuslabs"]
-enabled = true
-
-[plugins."omo@sisyphuslabs".mcp_servers]
-[plugins."omo@sisyphuslabs".mcp_servers.codegraph]
-enabled = true
-
-[plugins."omo@sisyphuslabs".mcp_servers.codegraph.tools]
-[plugins."omo@sisyphuslabs".mcp_servers.codegraph.tools.codegraph_explore]
-approval_mode = "approve"
-
-[plugins."omo@sisyphuslabs".mcp_servers.context7]
-enabled = true
-
-[plugins."omo@sisyphuslabs".mcp_servers.git_bash]
-enabled = false
-
 [plugins."pdf@openai-primary-runtime"]
 enabled = true
 
@@ -139,8 +199,69 @@ enabled = true
 [plugins."visualize@openai-bundled"]
 enabled = true
 
-[plugins."sites@openai-bundled"]
-enabled = true
-
 [plugins."template-creator@openai-primary-runtime"]
 enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[shell_environment_policy.set]
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:204ada337d8eb85c3bb9f72feed108fca8bcd74a1a55251078f34b2b4224fbd9"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:83d457f3dd344eae249f2043142eb8e0e4ac1b66c563c64d04c9ca625b3675de"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:702bba6d964e4bd2304c0e70fed2f1d34b2a2dcd41f3555ac20d221975813d65"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:ac49703811156675ba251de11de99c4701d79e9dc737a07f0cb7601e523b586e"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:3:0"]
+trusted_hash = "sha256:406e96fc6f9c214c7d6895f9d67468687ddd70a21483f020bfcecabeb89855ab"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:4:0"]
+trusted_hash = "sha256:4dc2683a194628a133553c181d30706ef08e45b08290675dc1c7dc78422a7316"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:5:0"]
+trusted_hash = "sha256:7afe99fc47879f7edf06986b28d0bf83f220030f352588c612531b166a89e1a0"
+
+[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:6c00f7897d6df00d8416cb2bba540f48a44dfa0d70bf03966acdbe3bcf25fa3d"
+
+[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:session_start:0:0"]
+trusted_hash = "sha256:5f81d38f47448a1581c08ec877e044d9e04dd6f814dce3f2671f7a8edadd719b"
+
+[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:1423b56c1322f96c8f74c51c1e7ae9a047b904c1fa43ee9165d462fd7a6e70ef"
+
+[hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:6a6f42bc3b58d6262db38bfd74d7f340fcca2b09cdb134aad365063f0bfefca4"
+
+[hooks.state."/Users/erwannrousseau/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:0ed786805542f7114c30eda6945e72a2f1285c06fd6d4320de621a9549c095ed"
+
+[hooks.state."/Users/erwannrousseau/KNP/defimedoc/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:f8a2ccd06352f8a4021c8b29946f7c399c1e3c1bf121e2fc8b6a9ca159bd8493"
+enabled = false
+
+[hooks.state."context-mode@context-mode:.codex-plugin/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:0d237345f8d46110d36cd0ef08e79b55fa151a07691dee36d492aa6f64bc0efd"
+
+[hooks.state."context-mode@context-mode:.codex-plugin/hooks.json:pre_compact:0:0"]
+trusted_hash = "sha256:ac1f9e5eb71ca262492150381d8f078b897056fc691f9973fc56d7b1b402e648"
+
+[hooks.state."context-mode@context-mode:.codex-plugin/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:56da0c4249dc7af048f42ae458fb83931926a8af41ec6fab5ae819ff3a8c83ae"
+
+[hooks.state."context-mode@context-mode:.codex-plugin/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:a6cc6a322d0931bdd68a5969e523cd71e6eedccab4850e8996c8948311173618"
+
+[hooks.state."context-mode@context-mode:.codex-plugin/hooks.json:stop:0:0"]
+trusted_hash = "sha256:9205c1763e40c0256ab334e2e96c037c1cdf5b8bfaddba31ed19d93d3388586a"
+
+[hooks.state."context-mode@context-mode:.codex-plugin/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:114549c484c131b94782d3424527dd1042d48bc3a8616a11299acdf60b112572"

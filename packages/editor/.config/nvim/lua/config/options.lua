@@ -11,3 +11,6 @@ vim.g.lazyvim_eslint_auto_format = true
 vim.g.lazyvim_prettier_needs_config = true
 
 vim.g.root_spec = { "cwd" }
+
+vim.opt.spell = false
+vim.opt.spelllang = { "en" }

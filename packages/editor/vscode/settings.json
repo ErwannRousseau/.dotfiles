@@ -131,7 +131,7 @@
   "html.format.wrapLineLength": 120,
   // --- PHP ---
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1784413095636,
+  "php-cs-fixer.lastDownload": 1786043098982,
   // --- EMMET ---
   "emmet.excludeLanguages": [
     "markdown",
@@ -384,4 +384,9 @@
     "*.svg": "default"
   },
   "liveServer.settings.donotShowInfoMsg": true,
+  "git.blame.editorDecoration.enabled": false,
+  "git.blame.editorDecoration.disableHover": true,
+  "git.blame.ignoreWhitespace": true,
+  "git.blame.statusBarItem.enabled": true,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
 }

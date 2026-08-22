@@ -14,6 +14,17 @@ end, { desc = "Delete Buffer" })
 
 map("n", "U", "<C-r>", { desc = "Redo" })
 
+local function set_spell_language(language)
+  vim.opt.spelllang = { language }
+  vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/" .. language .. ".utf-8.add"
+  vim.opt.spell = true
+  vim.notify("Spell language: " .. language)
+end
+
+map("n", "<leader>uL", function()
+  set_spell_language(vim.opt.spelllang:get()[1] == "fr" and "en" or "fr")
+end, { desc = "Switch spell language" })
+
 map({ "n", "v" }, "<leader>cp", function()
   local path = vim.fn.expand("%:.")
 

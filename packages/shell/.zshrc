@@ -138,3 +138,10 @@ export PATH="$HOME/.sentry/bin:$PATH"
 if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 
 [[ -r "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
+
+# Secrets
+
+source ~/.secrets/slides.env
+
+# bun completions
+[ -s "/Users/erwannrousseau/.bun/_bun" ] && source "/Users/erwannrousseau/.bun/_bun"

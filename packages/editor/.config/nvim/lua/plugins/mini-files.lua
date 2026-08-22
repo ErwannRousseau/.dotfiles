@@ -25,6 +25,8 @@ return {
       options = {
         use_as_default_explorer = false,
         permanent_delete = false,
+        -- Workaround for LSP errors when synchronizing files in mini.files
+        lsp_timeout = 0,
       },
     },
   },

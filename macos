@@ -20,7 +20,8 @@ expect() {
 case "${1:-}" in
   "")
     printf '%s==> Applying macOS defaults%s\n' "$blue" "$reset"
-    defaults write -g ApplePressAndHoldEnabled -bool false
+    defaults write -g ApplePressAndHoldEnabled -bool true
+    defaults write com.mitchellh.ghostty ApplePressAndHoldEnabled -bool false
     defaults write -g InitialKeyRepeat -int 15
     defaults write -g KeyRepeat -int 2
 
@@ -41,7 +42,8 @@ case "${1:-}" in
     ;;
   --check)
     printf '%s==> Checking macOS defaults%s\n' "$blue" "$reset"
-    expect -g ApplePressAndHoldEnabled 0
+    expect -g ApplePressAndHoldEnabled 1
+    expect com.mitchellh.ghostty ApplePressAndHoldEnabled 0
     expect -g InitialKeyRepeat 15
     expect -g KeyRepeat 2
     expect com.apple.finder AppleShowAllExtensions 1
