@@ -20,9 +20,8 @@ package bundle, macOS defaults, Finder-to-Neovim associations, and Stow links.
 ./macos # reapply macOS defaults
 ```
 
-Most files under `packages/` are symlinked into the home directory. The skill
-directory `packages/agents/.agents/skills` is linked to `~/.agents/skills` as a
-directory, so Codex sees regular skill files and both paths stay in sync.
+Most files under `packages/` are symlinked into the home directory. Agent skill
+restoration is documented in [docs/skills.md](docs/skills.md).
 Secrets, caches, databases, and local application state stay outside the
 repository.
 

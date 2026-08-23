@@ -70,11 +70,19 @@ else
   status=1
 fi
 
-label 'Skill directory link'
-if [[ -L "$HOME/.agents/skills" && -d "$HOME/.agents/skills" && "$HOME/.agents/skills" -ef "$repo_dir/packages/agents/.agents/skills" ]]; then
+label 'Agent skills'
+if [[ -d "$HOME/.agents/skills" && ! -L "$HOME/.agents/skills" ]]; then
   ok
 else
-  bad 'broken'
+  bad 'missing'
+  status=1
+fi
+
+label 'Skills lock'
+if [[ -L "$HOME/.agents/skills-lock.json" && "$HOME/.agents/skills-lock.json" -ef "$repo_dir/skills-lock.json" ]]; then
+  ok
+else
+  bad 'missing'
   status=1
 fi
 

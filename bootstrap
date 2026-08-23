@@ -43,6 +43,24 @@ if [[ -f "$repo_dir/Brewfile.local" ]]; then
   brew bundle --file="$repo_dir/Brewfile.local"
 fi
 
+info 'Restoring agent skills'
+skills_tmp="$(mktemp -d)"
+trap 'find "$skills_tmp" -depth -type f -delete; find "$skills_tmp" -depth -type d -empty -delete' EXIT
+cp "$repo_dir/skills-lock.json" "$skills_tmp/skills-lock.json"
+(cd "$skills_tmp" && npx --yes skills experimental_install)
+skills_dir="$HOME/.agents/skills"
+if [[ -L "$skills_dir" ]]; then
+  skills_target="$(readlink "$skills_dir")"
+  if [[ "$skills_target" == */packages/agents/.agents/skills ]]; then
+    unlink "$skills_dir"
+  else
+    error "Refusing to replace unexpected skills link: $skills_dir"
+    exit 1
+  fi
+fi
+mkdir -p "$skills_dir"
+cp -R "$skills_tmp/.agents/skills/." "$skills_dir/"
+
 info 'Applying macOS defaults'
 "$repo_dir/macos"
 info 'Linking dotfiles'

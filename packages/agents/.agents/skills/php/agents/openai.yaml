@@ -1,4 +1,0 @@
-interface:
-  display_name: "PHP"
-  short_description: "Guide PHP, Composer, tests, sécurité et performance"
-  default_prompt: "Use $php to diagnose or implement this PHP change."
