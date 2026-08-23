@@ -3,6 +3,28 @@
 This repository contains reproducible configuration only. Personal continuity
 data is stored in one encrypted archive on an external SSD, never in Git.
 
+## Before erasing
+
+- Commit and push every important repository. This is a check, not a backup.
+- Verify that iCloud Keychain, GitHub, Codex, and the password manager can be
+  accessed from another device.
+- Verify that the external SSD is writable and has enough free space.
+
+Do not archive Docker, GitHub CLI authentication, NVM, Bun, caches, plugins,
+logs, or worktrees. They are restored or reinstalled separately.
+
+## Developer tools
+
+`./bootstrap` installs Node, NVM, Bun, pnpm, Yarn, Semble, and Graft. Homebrew
+Node is available immediately; use NVM only when a project needs a specific
+Node version.
+
+Install the global Context Mode CLI manually after the reset if you use it:
+
+```bash
+bun add -g context-mode
+```
+
 ## Codex configuration and plugins
 
 `~/.codex` is Stow-linked from `packages/agents/.codex`. It holds the
@@ -48,9 +70,12 @@ git add age-recipients.txt
 ## Back up before erasing the Mac
 
 Quit Codex and ChatGPT. In a Zsh terminal, flush the history and create the
-archive. Replace `/Volumes/SSD` with the external SSD volume name.
+archive. Run this from the repository root and replace `/Volumes/SSD` with the
+external SSD volume name.
 
 ```bash
+set -o pipefail
+repo_dir="$(git rev-parse --show-toplevel)"
 fc -W ~/.zsh_history
 backup_dir="/Volumes/SSD/codex-continuity"
 backup_file="$backup_dir/codex-continuity-$(date +%F).tar.gz.age"
@@ -59,6 +84,7 @@ mkdir -p "$backup_dir"
 tar -C "$HOME" -czf - \
   .zsh_history \
   .ssh \
+  .gitconfig.local \
   .secrets \
   .codex/automations \
   .codex/dictation-history \
@@ -71,11 +97,12 @@ tar -C "$HOME" -czf - \
   .codex/attachments \
   .codex/generated_images \
   .codex/visualizations \
-  | age -R age-recipients.txt -o "$backup_file"
+  | age -R "$repo_dir/age-recipients.txt" -o "$backup_file"
 ```
 
 The archive contains Zsh history, the complete SSH configuration and keys,
-`~/.secrets`, and Codex automations, dictation history, thread history,
+local Git identity and signing settings, `~/.secrets`, and Codex automations,
+dictation history, thread history,
 sessions, archived sessions, memories, attachments, generated images, and
 visualizations. It excludes Codex `auth.json`, caches, plugins, logs, and
 worktrees.
@@ -87,12 +114,20 @@ Do not erase the Mac before this succeeds:
 ```bash
 restore_dir=$(mktemp -d /tmp/codex-continuity.XXXXXX)
 age -d -i ~/.config/age/key.txt "$backup_file" | tar -xzf - -C "$restore_dir"
-test -s "$restore_dir/.zsh_history"
-test -d "$restore_dir/.secrets"
-test -d "$restore_dir/.codex/sessions"
-test -d "$restore_dir/.codex/memories"
-test -f "$restore_dir/.codex/thread_history_1.sqlite"
-test -f "$restore_dir/.codex/memories_1.sqlite"
+test_home=$(mktemp -d /tmp/codex-continuity-home.XXXXXX)
+cp "$restore_dir/.zsh_history" "$test_home/.zsh_history"
+cp "$restore_dir/.gitconfig.local" "$test_home/.gitconfig.local"
+rsync -a "$restore_dir/.ssh/" "$test_home/.ssh/"
+rsync -a "$restore_dir/.secrets/" "$test_home/.secrets/"
+rsync -a "$restore_dir/.codex/" "$test_home/.codex/"
+test -s "$test_home/.zsh_history"
+test -f "$test_home/.gitconfig.local"
+test -d "$test_home/.ssh"
+test -d "$test_home/.secrets"
+test -d "$test_home/.codex/sessions"
+test -d "$test_home/.codex/memories"
+test -f "$test_home/.codex/thread_history_1.sqlite"
+test -f "$test_home/.codex/memories_1.sqlite"
 ```
 
 ## Restore after the reset
@@ -110,6 +145,7 @@ backup_file="/Volumes/SSD/codex-continuity/codex-continuity-YYYY-MM-DD.tar.gz.ag
 restore_dir=$(mktemp -d /tmp/codex-continuity.XXXXXX)
 age -d -i ~/.config/age/key.txt "$backup_file" | tar -xzf - -C "$restore_dir"
 cp "$restore_dir/.zsh_history" ~/.zsh_history
+cp "$restore_dir/.gitconfig.local" ~/.gitconfig.local
 rsync -a "$restore_dir/.ssh/" ~/.ssh/
 rsync -a "$restore_dir/.secrets/" ~/.secrets/
 rsync -a "$restore_dir/.codex/" ~/.codex/

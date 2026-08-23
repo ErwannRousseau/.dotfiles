@@ -46,6 +46,7 @@ brew "mkcert"
 brew "mole"
 brew "mysql-client"
 brew "neovim"
+brew "nvm"
 brew "php@8.3", link: true
 brew "pnpm"
 brew "python@3.12"
@@ -74,7 +75,7 @@ brew "zsh-autosuggestions"
 brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 brew "zsh-vi-mode"
-brew "oven-sh/bun/bun", link: false, trusted: true
+brew "oven-sh/bun/bun", trusted: true
 brew "resend/cli/resend", trusted: true
 brew "shivammathur/php/php@8.4", trusted: true
 brew "sst/tap/opencode"
@@ -84,6 +85,7 @@ brew "thezoraiz/ascii-image-converter/ascii-image-converter", trusted: true
 cask "aurorascharff/clicklight/clicklight"
 cask "codex"
 cask "font-jetbrains-mono-nerd-font"
+cask "font-meslo-lg-nerd-font"
 cask "ghostty"
 cask "karabiner-elements"
 cask "ngrok"

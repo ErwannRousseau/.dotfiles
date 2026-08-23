@@ -84,8 +84,7 @@ done
 
 # ------- Node Version Manager (nvm) -------
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
 
 # ------- pnpm setup -------
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -119,11 +118,9 @@ source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2
 
 
 # ------- bun -------
-# completion
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$BUN_INSTALL/_bun" ] && source "$BUN_INSTALL/_bun"
 
 # ------- Worktrunk -------
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
@@ -142,6 +139,3 @@ if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 # Secrets
 
 source ~/.secrets/slides.env
-
-# bun completions
-[ -s "/Users/erwannrousseau/.bun/_bun" ] && source "/Users/erwannrousseau/.bun/_bun"

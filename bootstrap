@@ -43,6 +43,9 @@ if [[ -f "$repo_dir/Brewfile.local" ]]; then
   brew bundle --file="$repo_dir/Brewfile.local"
 fi
 
+info 'Preparing NVM'
+mkdir -p "$HOME/.nvm"
+
 info 'Restoring agent skills'
 skills_tmp="$(mktemp -d)"
 trap 'find "$skills_tmp" -depth -type f -delete; find "$skills_tmp" -depth -type d -empty -delete' EXIT
