@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Write Like Me"
+  short_description: "Build a personal writing-voice skill"
+  default_prompt: "Use $create-write-like-me to build or recalibrate my personal writing-voice skill."

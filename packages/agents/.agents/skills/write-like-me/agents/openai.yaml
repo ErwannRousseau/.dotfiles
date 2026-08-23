@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Like Me"
+  short_description: "Write or rewrite text in my personal voice"
+  default_prompt: "Use $write-like-me to write or rewrite this text in my personal voice."

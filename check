@@ -55,14 +55,23 @@ if [[ -f "$repo_dir/Brewfile.local" ]]; then
 fi
 
 label 'Stow links'
-if stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal agents &&
+if stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal &&
+  stow --dir "$repo_dir/packages" --target "$HOME" --simulate --restow agents &&
   stow --dir "$repo_dir/packages/editor" --target "$HOME/Library/Application Support/Code/User" --no-folding --simulate --restow vscode &&
   verify_stow_links "$repo_dir/packages/shell" "$HOME" &&
   verify_stow_links "$repo_dir/packages/git" "$HOME" &&
   verify_stow_links "$repo_dir/packages/editor" "$HOME" vscode &&
   verify_stow_links "$repo_dir/packages/terminal" "$HOME" &&
-  verify_stow_links "$repo_dir/packages/agents" "$HOME" &&
+  verify_stow_links "$repo_dir/packages/agents" "$HOME" .agents &&
   verify_stow_links "$repo_dir/packages/editor/vscode" "$HOME/Library/Application Support/Code/User"; then
+  ok
+else
+  bad 'broken'
+  status=1
+fi
+
+label 'Skill directory link'
+if [[ -L "$HOME/.agents/skills" && -d "$HOME/.agents/skills" && "$HOME/.agents/skills" -ef "$repo_dir/packages/agents/.agents/skills" ]]; then
   ok
 else
   bad 'broken'

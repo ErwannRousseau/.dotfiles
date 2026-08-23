@@ -1,0 +1,7 @@
+interface:
+  display_name: "Deep Init"
+  short_description: "Map a repository and structure its AGENTS.md guidance"
+  default_prompt: "Use $deepinit to map this repository and improve its AGENTS.md hierarchy."
+
+policy:
+  allow_implicit_invocation: false

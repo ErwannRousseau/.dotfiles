@@ -1,0 +1,4 @@
+interface:
+  display_name: "Super-Linter local"
+  short_description: "Lint a file or folder with Docker Super-Linter"
+  default_prompt: "Use $superlinter on @path/to/file-or-folder and report lint findings."

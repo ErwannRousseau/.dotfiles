@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backend Architecture Patterns"
+  short_description: "Design backend boundaries that stay replaceable"
+  default_prompt: "Use $backend-architecture-patterns to design or refactor this backend's boundaries."
