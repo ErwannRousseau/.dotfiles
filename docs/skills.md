@@ -1,8 +1,9 @@
 # Agent skills
 
-The repository versions only the source lock at `skills-lock.json`. The host
-path `~/.agents/skills-lock.json` is a symlink to that repository file, so edits
-made through either path affect the same file. Skill files are restored directly
+The repository versions only the source lock at
+`packages/agents/.agents/skills-lock.json`. The host path
+`~/.agents/skills-lock.json` is a symlink to that repository file, so edits made
+through either path affect the same file. Skill files are restored directly
 into `~/.agents/skills`; they are never generated inside the repository or
 managed by Stow.
 

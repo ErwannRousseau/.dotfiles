@@ -79,7 +79,7 @@ else
 fi
 
 label 'Skills lock'
-if [[ -L "$HOME/.agents/skills-lock.json" && "$HOME/.agents/skills-lock.json" -ef "$repo_dir/skills-lock.json" ]]; then
+if [[ -L "$HOME/.agents/skills-lock.json" && "$HOME/.agents/skills-lock.json" -ef "$repo_dir/packages/agents/.agents/skills-lock.json" ]]; then
   ok
 else
   bad 'missing'
