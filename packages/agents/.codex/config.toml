@@ -100,8 +100,6 @@ last_revision = "4d44f877c5f6b506c55a153548e7dea3139fe229"
 source_type = "git"
 source = "https://github.com/mksglu/context-mode.git"
 
-# MCP servers
-
 [mcp_servers.semble]
 command = "uvx"
 args = ["--from", "semble[mcp]==0.5.5", "semble"]
@@ -144,9 +142,9 @@ NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/erwannrousseau/.codex/plugins/c
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.playwright]
-args = [ "@playwright/mcp@latest" ]
 command = "npx"
-startup_timeout_sec = 15
+args = ["@playwright/mcp@latest"]
+startup_timeout_sec = 15.0
 
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
@@ -154,6 +152,10 @@ url = "https://mcp.notion.com/mcp"
 [mcp_servers.slides]
 url = "https://mcp.slides.com/"
 bearer_token_env_var = "SLIDES_API_KEY"
+
+[mcp_servers.XcodeBuildMCP]
+command = "xcodebuildmcp"
+args = ["mcp"]
 
 # Plugins
 
@@ -212,6 +214,12 @@ NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ec
 trust_level = "trusted"
 
 [projects."/Users/erwannrousseau/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/KNP/pedag-eau"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/KNP/defimedoc-app"]
 trust_level = "trusted"
 
 [hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]
