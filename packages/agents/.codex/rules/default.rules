@@ -1,0 +1,17 @@
+prefix_rule(
+    pattern = ["ssh"],
+    decision = "forbidden",
+    justification = "Les commandes SSH sont interdites.",
+)
+
+prefix_rule(
+    pattern = ["scp"],
+    decision = "forbidden",
+    justification = "Les commandes SCP sont interdites.",
+)
+
+prefix_rule(
+    pattern = ["sftp"],
+    decision = "forbidden",
+    justification = "Les commandes SFTP sont interdites.",
+)
