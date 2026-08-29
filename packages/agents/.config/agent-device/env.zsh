@@ -1,0 +1,3 @@
+export AGENT_DEVICE_IOS_TEAM_ID="98FD594FLL"
+export AGENT_DEVICE_IOS_BUNDLE_ID="com.erwannrousseau.agentdevice.runner"
+unset AGENT_DEVICE_IOS_PROVISIONING_PROFILE

@@ -94,7 +94,7 @@ case ":$PATH:" in
 esac
 
 # ------- Ruby (rbenv) -------
-eval "$(rbenv init -)"
+eval "$(rbenv init - zsh)"
 
 # ------- Android SDK -------
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
@@ -135,6 +135,10 @@ export PATH="$HOME/.sentry/bin:$PATH"
 if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 
 [[ -r "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
+
+# agent-device
+[[ -r "$HOME/.config/agent-device/env.zsh" ]] &&
+  source "$HOME/.config/agent-device/env.zsh"
 
 # Secrets
 

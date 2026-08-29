@@ -3,6 +3,7 @@ return {
   opts = {
     grep = {
       follow = true,
+      rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob '!graft/**'",
     },
   },
   keys = function(_, keys)
@@ -10,7 +11,7 @@ return {
       "<leader>sx",
       function()
         require("fzf-lua").live_grep({
-          rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -F -e",
+          rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob '!graft/**' -F -e",
         })
       end,
       desc = "Grep fi[X]ed-strings)",

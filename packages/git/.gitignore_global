@@ -17,3 +17,7 @@ biome.jsonc
 
 # LazyVim
 .lazy.lua
+
+# Graft
+.ignore
+graft/

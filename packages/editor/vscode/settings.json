@@ -131,7 +131,7 @@
   "html.format.wrapLineLength": 120,
   // --- PHP ---
   "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-  "php-cs-fixer.lastDownload": 1786043098982,
+  "php-cs-fixer.lastDownload": 1787658899227,
   // --- EMMET ---
   "emmet.excludeLanguages": [
     "markdown",

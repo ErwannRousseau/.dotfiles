@@ -2,6 +2,8 @@
 
 @/Users/erwannrousseau/.codex/SEMBLE.md
 
+@/Users/erwannrousseau/.codex/GRAFT.md
+
 ## Tool preferences
 
 For web research:

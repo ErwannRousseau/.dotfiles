@@ -1,6 +1,6 @@
 model_context_window = 250000
 model_auto_compact_token_limit = 200000
-model = "gpt-5.6-terra"
+model = "gpt-5.6-luna"
 personality = "pragmatic"
 approval_policy = "never"
 approvals_reviewer = "user"
@@ -8,7 +8,7 @@ sandbox_mode = "danger-full-access"
 file_opener = "vscode"
 network_access = "enabled"
 notify = [ "/Users/erwannrousseau/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended" ]
-model_reasoning_effort = "high"
+model_reasoning_effort = "max"
 service_tier = "default"
 
 [agents]
@@ -84,7 +84,6 @@ source_type = "local"
 source = "/Users/erwannrousseau/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-20T06:52:07Z"
 source_type = "local"
 source = "/Users/erwannrousseau/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -137,8 +136,9 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunc
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.818.41509"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/erwannrousseau/.codex/plugins/cache/openai-bundled/browser/26.818.41509/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.825.32147"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/erwannrousseau/.codex/plugins/cache/openai-bundled/browser/26.825.32147/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "/Users/erwannrousseau/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.playwright]
@@ -156,6 +156,10 @@ bearer_token_env_var = "SLIDES_API_KEY"
 [mcp_servers.XcodeBuildMCP]
 command = "xcodebuildmcp"
 args = ["mcp"]
+
+[mcp_servers.cua_repl]
+command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+enabled = false
 
 # Plugins
 
@@ -207,6 +211,9 @@ enabled = true
 [plugins."codex-app-tools@openai-bundled"]
 enabled = true
 
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
 [shell_environment_policy.set]
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"
 
@@ -220,6 +227,21 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/erwannrousseau/KNP/defimedoc-app"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/KNP/defimedoc"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/Documents/Codex/2026-08-25/ws"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/Documents/Codex/2026-08-25/realtime-voice-chat"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/.config/nvim"]
+trust_level = "trusted"
+
+[projects."/Users/erwannrousseau/Documents/Codex/2026-08-26/comm"]
 trust_level = "trusted"
 
 [hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]

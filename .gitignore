@@ -3,3 +3,17 @@ Brewfile.local
 
 # graft's local graph cache — regenerable, not committed (run `graft build`).
 graft/
+
+# Local credentials and secret material. Keep shareable *.example templates.
+.env
+.env.*
+!.env.example
+!.env.*.example
+.secrets/
+auth.json
+credentials.json
+client_secret*.json
+*.p8
+*.key
+id_rsa
+id_ed25519
