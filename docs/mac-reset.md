@@ -15,15 +15,8 @@ logs, or worktrees. They are restored or reinstalled separately.
 
 ## Developer tools
 
-`./bootstrap` installs Node, NVM, Bun, pnpm, Yarn, Semble, and Graft. Homebrew
-Node is available immediately; use NVM only when a project needs a specific
-Node version.
-
-Install the global Context Mode CLI manually after the reset if you use it:
-
-```bash
-bun add -g context-mode
-```
+`./bootstrap` installs Node, NVM with Node `v24.15.0` as the default, Bun, pnpm,
+Yarn, Semble, Graft, and Agent Device.
 
 ## Codex configuration and plugins
 
@@ -100,12 +93,11 @@ tar -C "$HOME" -czf - \
   | age -R "$repo_dir/age-recipients.txt" -o "$backup_file"
 ```
 
-The archive contains Zsh history, the complete SSH configuration and keys,
-local Git identity and signing settings, `~/.secrets`, and Codex automations,
-dictation history, thread history,
-sessions, archived sessions, memories, attachments, generated images, and
-visualizations. It excludes Codex `auth.json`, caches, plugins, logs, and
-worktrees.
+The archive contains Zsh history, the complete SSH configuration and keys, local
+Git identity and signing settings, `~/.secrets`, and Codex automations,
+dictation history, thread history, sessions, archived sessions, memories,
+attachments, generated images, and visualizations. It excludes Codex
+`auth.json`, caches, plugins, logs, and worktrees.
 
 ## Test the backup
 

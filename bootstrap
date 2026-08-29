@@ -45,6 +45,12 @@ fi
 
 info 'Preparing NVM'
 mkdir -p "$HOME/.nvm"
+info 'Installing default NVM Node'
+export NVM_DIR="$HOME/.nvm"
+# shellcheck source=/dev/null
+. "$(brew --prefix nvm)/nvm.sh"
+nvm install 24.15.0
+nvm alias default 24.15.0
 
 info 'Restoring agent skills'
 skills_tmp="$(mktemp -d)"
