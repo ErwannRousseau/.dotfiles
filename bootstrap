@@ -16,12 +16,40 @@ info() { printf '%s==> %s%s\n' "$blue" "$1" "$reset"; }
 success() { printf '%s✓ %s%s\n' "$green" "$1" "$reset"; }
 error() { printf '%s✗ %s%s\n' "$red" "$1" "$reset" >&2; }
 
+if (( EUID == 0 )); then
+  error 'Run bootstrap as your user, not with sudo'
+  exit 1
+fi
+
+if [[ "$(uname -s)" != Darwin ]]; then
+  error 'bootstrap supports macOS only'
+  exit 1
+fi
+
+case "$(uname -m)" in
+  arm64|x86_64) ;;
+  *)
+    error "Unsupported Mac architecture: $(uname -m)"
+    exit 1
+    ;;
+esac
+
+macos_major="$(sw_vers -productVersion | cut -d. -f1)"
+if (( macos_major < 14 )); then
+  error 'Homebrew requires macOS 14 or newer'
+  exit 1
+fi
+
 if ! xcode-select -p >/dev/null 2>&1; then
   error 'Install Xcode Command Line Tools first: xcode-select --install'
   exit 1
 fi
 
 if ! command -v brew >/dev/null 2>&1; then
+  if [[ ! -t 0 && ${NONINTERACTIVE:-} != 1 ]]; then
+    error 'Homebrew installation needs an interactive terminal or NONINTERACTIVE=1'
+    exit 1
+  fi
   info 'Installing Homebrew'
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -35,13 +63,23 @@ if ! command -v brew >/dev/null 2>&1; then
   fi
 fi
 
+if ! command -v stow >/dev/null 2>&1; then
+  info 'Installing GNU Stow for the link preflight'
+  brew install stow
+fi
+
+info 'Checking dotfile link conflicts'
+"$repo_dir/link" --check
+
 info 'Installing Brewfile packages'
-brew bundle --file="$repo_dir/Brewfile"
+brew bundle --no-upgrade --file="$repo_dir/Brewfile"
 
 if [[ -f "$repo_dir/Brewfile.local" ]]; then
   info 'Installing local Brewfile packages'
-  brew bundle --file="$repo_dir/Brewfile.local"
+  brew bundle --no-upgrade --file="$repo_dir/Brewfile.local"
 fi
+
+export PATH="$HOME/.local/bin:$PATH"
 
 ohmyzsh_dir="$HOME/.oh-my-zsh"
 ohmyzsh_repo='https://github.com/ohmyzsh/ohmyzsh.git'
@@ -54,27 +92,54 @@ if [[ ! -f "$ohmyzsh_dir/oh-my-zsh.sh" ]]; then
   info 'Installing Oh My Zsh'
   git clone "$ohmyzsh_repo" "$ohmyzsh_dir"
   git -C "$ohmyzsh_dir" checkout --detach "$ohmyzsh_commit"
+elif [[ ! -d "$ohmyzsh_dir/.git" ]]; then
+  error "Oh My Zsh is not a Git checkout: $ohmyzsh_dir"
+  exit 1
+elif [[ -n "$(git -C "$ohmyzsh_dir" status --porcelain)" ]]; then
+  error "Refusing to replace modified Oh My Zsh checkout: $ohmyzsh_dir"
+  exit 1
+elif [[ "$(git -C "$ohmyzsh_dir" rev-parse HEAD)" != "$ohmyzsh_commit" ]]; then
+  info 'Restoring pinned Oh My Zsh revision'
+  git -C "$ohmyzsh_dir" fetch origin
+  git -C "$ohmyzsh_dir" checkout --detach "$ohmyzsh_commit"
 fi
 
-info 'Preparing NVM'
-mkdir -p "$HOME/.nvm"
-info 'Installing default NVM Node'
-export NVM_DIR="$HOME/.nvm"
-# shellcheck source=/dev/null
-. "$(brew --prefix nvm)/nvm.sh"
-nvm install 24.15.0
-nvm alias default 24.15.0
+bootstrap_tmp="$(mktemp -d)"
+trap 'rm -rf "$bootstrap_tmp"' EXIT
 
-info 'Restoring agent skills'
-skills_tmp="$(mktemp -d)"
-trap 'find "$skills_tmp" -depth -type f -delete; find "$skills_tmp" -depth -type d -empty -delete' EXIT
-host_skills_lock="$HOME/.agents/.skill-lock.json"
-if [[ ! -f "$host_skills_lock" ]]; then
-  error "Missing host skills lock: $host_skills_lock"
+nvm_release='v0.40.7'
+nvm_installer="$bootstrap_tmp/nvm-install.sh"
+nvm_installer_sha256='066ce4eaf4d78eaa6410433bc9ba58faaba646157cbbed6109153e6c24c5f8a5'
+info "Installing NVM $nvm_release"
+curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$nvm_release/install.sh" -o "$nvm_installer"
+if [[ "$(shasum -a 256 "$nvm_installer" | awk '{print $1}')" != "$nvm_installer_sha256" ]]; then
+  error 'NVM installer checksum mismatch'
   exit 1
 fi
-cp "$host_skills_lock" "$skills_tmp/skills-lock.json"
-(cd "$skills_tmp" && npx --yes skills experimental_install)
+export NVM_DIR="$HOME/.nvm"
+mkdir -p "$NVM_DIR"
+METHOD=script PROFILE=/dev/null NVM_INSTALL_VERSION="$nvm_release" /bin/bash "$nvm_installer"
+# shellcheck source=/dev/null
+. "$NVM_DIR/nvm.sh"
+if [[ "$(nvm --version)" != "${nvm_release#v}" ]]; then
+  error "Unexpected NVM version: $(nvm --version)"
+  exit 1
+fi
+
+info 'Installing default NVM Node'
+nvm install 24.15.0
+nvm alias default 24.15.0
+nvm use --silent default
+if [[ "$(node --version)" != v24.15.0 ]]; then
+  error "Unexpected Node version: $(node --version)"
+  exit 1
+fi
+
+info 'Restoring agent skills'
+skills_tmp="$bootstrap_tmp/skills"
+mkdir -p "$skills_tmp"
+cp "$repo_dir/packages/agents/.agents/skills-lock.json" "$skills_tmp/skills-lock.json"
+(cd "$skills_tmp" && npx --yes skills@1.5.23 experimental_install)
 skills_dir="$HOME/.agents/skills"
 if [[ -L "$skills_dir" ]]; then
   skills_target="$(readlink "$skills_dir")"
@@ -95,4 +160,6 @@ info 'Applying macOS defaults'
 "$repo_dir/macos"
 info 'Linking dotfiles'
 "$repo_dir/link"
+info 'Validating installation'
+"$repo_dir/check"
 success 'Bootstrap complete'

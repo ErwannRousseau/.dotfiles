@@ -12,8 +12,7 @@ fpath+=("${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src"
 
 # ------- oh-my-zsh options -------
 CASE_SENSITIVE="true"
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 3
+zstyle ':omz:update' mode disabled
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="dd/mm/yyyy"
@@ -85,7 +84,7 @@ done
 
 # ------- Node Version Manager (nvm) -------
 export NVM_DIR="$HOME/.nvm"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # ------- pnpm setup -------
 export PNPM_HOME="$HOME/Library/pnpm"

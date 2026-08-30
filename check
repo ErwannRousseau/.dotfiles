@@ -4,6 +4,10 @@ set -euo pipefail
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
 repo_skills_lock="$repo_dir/packages/agents/.agents/skills-lock.json"
 host_skills_lock="$HOME/.agents/.skill-lock.json"
+host_compat_skills_lock="$HOME/.agents/skills-lock.json"
+ohmyzsh_commit='4b657407c98bbc8830ae66c2ac7ff3d737c55a83'
+nvm_release='0.40.7'
+node_release='v24.15.0'
 status=0
 
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
@@ -39,7 +43,7 @@ verify_stow_links() {
 }
 
 label 'Homebrew bundle'
-if HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check --file="$repo_dir/Brewfile"; then
+if HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_BUNDLE_NO_UPGRADE=1 brew bundle check --file="$repo_dir/Brewfile"; then
   ok
 else
   bad 'missing'
@@ -48,7 +52,7 @@ fi
 
 if [[ -f "$repo_dir/Brewfile.local" ]]; then
   label 'Local Homebrew bundle'
-  if HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check --file="$repo_dir/Brewfile.local"; then
+  if HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_BUNDLE_NO_UPGRADE=1 brew bundle check --file="$repo_dir/Brewfile.local"; then
     ok
   else
     bad 'missing'
@@ -57,10 +61,37 @@ if [[ -f "$repo_dir/Brewfile.local" ]]; then
 fi
 
 label 'Oh My Zsh'
-if [[ -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" ]]; then
+if [[ -f "$HOME/.oh-my-zsh/oh-my-zsh.sh" && -d "$HOME/.oh-my-zsh/.git" &&
+  "$(git -C "$HOME/.oh-my-zsh" rev-parse HEAD)" == "$ohmyzsh_commit" ]]; then
   ok
 else
-  bad 'missing'
+  bad 'missing or wrong revision'
+  status=1
+fi
+
+label 'NVM and Node'
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  # shellcheck source=/dev/null
+  . "$NVM_DIR/nvm.sh"
+fi
+if command -v nvm >/dev/null 2>&1 && [[ "$(nvm --version)" == "$nvm_release" ]] &&
+  nvm use --silent default >/dev/null && [[ "$(node --version)" == "$node_release" ]]; then
+  ok
+else
+  bad 'missing or wrong version'
+  status=1
+fi
+
+label 'Developer tools'
+missing_tools=()
+for tool in bun pnpm yarn semble graft agent-device rtk; do
+  command -v "$tool" >/dev/null 2>&1 || missing_tools+=("$tool")
+done
+if (( ${#missing_tools[@]} == 0 )); then
+  ok
+else
+  bad "missing: ${missing_tools[*]}"
   status=1
 fi
 
@@ -74,9 +105,7 @@ else
 fi
 
 label 'Stow links'
-if stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow shell git editor terminal &&
-  stow --dir "$repo_dir/packages" --target "$HOME" --no-folding --simulate --restow agents &&
-  stow --dir "$repo_dir/packages/editor" --target "$HOME/Library/Application Support/Code/User" --no-folding --simulate --restow vscode &&
+if "$repo_dir/link" --check &&
   verify_stow_links "$repo_dir/packages/shell" "$HOME" &&
   verify_stow_links "$repo_dir/packages/git" "$HOME" &&
   verify_stow_links "$repo_dir/packages/editor" "$HOME" vscode &&
@@ -98,7 +127,9 @@ else
 fi
 
 label 'Skills lock'
-if [[ -L "$repo_skills_lock" && -f "$host_skills_lock" && "$repo_skills_lock" -ef "$host_skills_lock" ]]; then
+if [[ -f "$repo_skills_lock" && ! -L "$repo_skills_lock" &&
+  -L "$host_skills_lock" && "$host_skills_lock" -ef "$repo_skills_lock" &&
+  -L "$host_compat_skills_lock" && "$host_compat_skills_lock" -ef "$repo_skills_lock" ]]; then
   ok
 else
   bad 'missing or out of sync'

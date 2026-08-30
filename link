@@ -2,6 +2,8 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_skills_lock="$repo_dir/packages/agents/.agents/skills-lock.json"
+host_skills_lock="$HOME/.agents/.skill-lock.json"
 
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
   blue=$'\033[34m'
@@ -12,32 +14,55 @@ else
   blue='' green='' red='' reset=''
 fi
 
+error() { printf '%s✗ %s%s\n' "$red" "$1" "$reset" >&2; }
+
 case "${1:-}" in
   "")
     stow_options=(--restow)
+    check_only=false
     ;;
   --adopt)
     stow_options=(--adopt --restow)
+    check_only=false
     printf '%s==> Adopting existing files%s\n' "$blue" "$reset"
     ;;
+  --check)
+    stow_options=(--simulate --restow)
+    check_only=true
+    printf '%s==> Checking dotfile link conflicts%s\n' "$blue" "$reset"
+    ;;
   *)
-    printf '%sUsage: %s [--adopt]%s\n' "$red" "$0" "$reset" >&2
+    printf '%sUsage: %s [--adopt|--check]%s\n' "$red" "$0" "$reset" >&2
     exit 2
     ;;
 esac
 
-for target in \
-  "$HOME/Library/Application Support/Code/User/settings.json" \
-  "$HOME/Library/Application Support/Code/User/keybindings.json" \
-  "$HOME/Library/Application Support/Code/User/snippets/fetch.code-snippets" \
-  "$HOME/Library/Application Support/Code/User/snippets/javascript.json" \
-  "$HOME/Library/Application Support/Code/User/snippets/typescriptreact.code-snippets"; do
-  [[ -L "$target" && ( "$(readlink "$target")" == *"/packages/vscode/"* || "$(readlink "$target")" == *"/packages/editor/vscode/Library/"* ) ]] && rm "$target"
-done
+if [[ -L "$host_skills_lock" ]]; then
+  if [[ ! "$host_skills_lock" -ef "$repo_skills_lock" ]]; then
+    error "Refusing to replace unexpected skills lock link: $host_skills_lock"
+    exit 1
+  fi
+elif [[ -e "$host_skills_lock" ]]; then
+  error "Refusing to replace existing skills lock file: $host_skills_lock"
+  exit 1
+elif [[ $check_only == false ]]; then
+  mkdir -p "$HOME/.agents"
+  ln -s "$repo_skills_lock" "$host_skills_lock"
+fi
 
-printf '%s==> Linking dotfiles%s\n' "$blue" "$reset"
+[[ $check_only == false ]] && printf '%s==> Linking dotfiles%s\n' "$blue" "$reset"
 stow --dir "$repo_dir/packages" --target "$HOME" --no-folding "${stow_options[@]}" shell git editor terminal
 stow --dir "$repo_dir/packages" --target "$HOME" --no-folding "${stow_options[@]}" agents
-mkdir -p "$HOME/Library/Application Support/Code/User"
-stow --dir "$repo_dir/packages/editor" --target "$HOME/Library/Application Support/Code/User" --no-folding "${stow_options[@]}" vscode
-printf '%s✓ Dotfiles linked%s\n' "$green" "$reset"
+vscode_target="$HOME/Library/Application Support/Code/User"
+if [[ $check_only == false ]]; then
+  mkdir -p "$vscode_target"
+fi
+if [[ -d "$vscode_target" ]]; then
+  stow --dir "$repo_dir/packages/editor" --target "$vscode_target" --no-folding "${stow_options[@]}" vscode
+fi
+
+if [[ $check_only == true ]]; then
+  printf '%s✓ No dotfile link conflicts%s\n' "$green" "$reset"
+else
+  printf '%s✓ Dotfiles linked%s\n' "$green" "$reset"
+fi

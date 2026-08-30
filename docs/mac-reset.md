@@ -15,8 +15,9 @@ logs, or worktrees. They are restored or reinstalled separately.
 
 ## Developer tools
 
-`./bootstrap` installs Node, NVM with Node `v24.15.0` as the default, Bun, pnpm,
-Yarn, Semble, Graft, and Agent Device.
+`./bootstrap` installs official NVM `v0.40.7`, Node `v24.15.0` as the default,
+Bun, pnpm, Yarn, Semble, Graft, and Agent Device. It installs missing Brewfile
+entries without upgrading packages already present.
 
 ## Codex configuration and plugins
 
@@ -173,9 +174,18 @@ Do not erase the Mac before this succeeds:
 
 ## Restore after the reset
 
-Install the Xcode Command Line Tools, clone this repository, and run
-`./bootstrap`. Retrieve the private identity from iCloud Keychain and write it
-to `~/.config/age/key.txt` with mode `600`, then restore the archive:
+Install the Xcode Command Line Tools, clone the public repository over HTTPS,
+and run `./bootstrap` as the normal user. HTTPS is required at this stage
+because the SSH key has not been restored yet:
+
+```bash
+git clone https://github.com/ErwannRousseau/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+./bootstrap
+```
+
+Retrieve the private identity from iCloud Keychain and write it to
+`~/.config/age/key.txt` with mode `600`, then restore the archive:
 
 ```bash
 mkdir -p ~/.config/age
@@ -197,11 +207,16 @@ mkdir -p ~/.config "$HOME/Library/Application Support/Raycast/script-commands"
 rsync -a "$restore_dir/.config/karabiner/" ~/.config/karabiner/
 rsync -a "$restore_dir/Library/Application Support/Raycast/script-commands/" \
   "$HOME/Library/Application Support/Raycast/script-commands/"
+git -C ~/dotfiles remote set-url origin git@github.com:ErwannRousseau/dotfiles.git
 ```
 
 Install Raycast, run `Import Settings & Data`, and select `"$raycast_file"`;
 enter the Raycast export passphrase. Re-authenticate Raycast extensions
 afterwards.
+
+Launch Karabiner-Elements, OrbStack, Ghostty, VS Code, Raycast, and Neovim
+Finder once, then complete their macOS permission, system-extension, Automation,
+and login prompts.
 
 ## Reconnect services after the reset
 

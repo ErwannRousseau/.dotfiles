@@ -67,8 +67,6 @@ brew 'mole'
 brew 'mysql-client'
 # Ambitious Vim-fork focused on extensibility and agility
 brew 'neovim'
-# Manage multiple Node.js versions
-brew 'nvm'
 # Fast, disk space efficient package manager
 brew 'pnpm'
 # Interpreted, interactive, object-oriented programming language

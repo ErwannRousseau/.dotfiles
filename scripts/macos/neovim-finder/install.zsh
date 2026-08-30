@@ -7,6 +7,11 @@ bundle_id='com.erwannrousseau.neovim-finder'
 applications_dir="${NEOVIM_FINDER_APPLICATIONS_DIR:-$HOME/Applications}"
 launcher='/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister'
 mode="${1:-install}"
+destination="$applications_dir/$application_name.app"
+
+bundle_identifier() {
+	/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$1/Contents/Info.plist" 2>/dev/null
+}
 
 case "$mode" in
 	install|--check|--build-check) ;;
@@ -34,15 +39,22 @@ if [[ "$mode" == '--build-check' ]]; then
 fi
 
 if [[ "$mode" == '--check' ]]; then
-	[[ -d "$applications_dir/$application_name.app" ]] || { print -u2 "Missing $applications_dir/$application_name.app"; exit 1; }
-	codesign --verify --deep --strict "$applications_dir/$application_name.app"
+	[[ -d "$destination" && ! -L "$destination" ]] || { print -u2 "Missing $destination"; exit 1; }
+	[[ "$(bundle_identifier "$destination")" == "$bundle_id" ]] || { print -u2 "Unexpected app at $destination"; exit 1; }
+	codesign --verify --deep --strict "$destination"
 	"$defaults_tool" --check
 	exit 0
 fi
 
 mkdir -p "$applications_dir"
-ditto "$bundle" "$applications_dir/$application_name.app"
-codesign --force --sign - "$applications_dir/$application_name.app"
-"$launcher" -f "$applications_dir/$application_name.app"
+if [[ -e "$destination" || -L "$destination" ]]; then
+	[[ -d "$destination" && ! -L "$destination" && "$(bundle_identifier "$destination")" == "$bundle_id" ]] || {
+		print -u2 "Refusing to replace unexpected app: $destination"
+		exit 1
+	}
+fi
+ditto "$bundle" "$destination"
+codesign --force --sign - "$destination"
+"$launcher" -f "$destination"
 "$defaults_tool"
 print "Installed $application_name in $applications_dir"
