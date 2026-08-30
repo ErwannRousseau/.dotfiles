@@ -3,9 +3,9 @@
 The repository versions only the source lock at
 `packages/agents/.agents/skills-lock.json`. The host path
 `~/.agents/skills-lock.json` is a symlink to that repository file, so edits made
-through either path affect the same file. Skill files are restored directly
-into `~/.agents/skills`; they are never generated inside the repository or
-managed by Stow.
+through either path affect the same file. Skill files are restored directly into
+`~/.agents/skills`; they are never generated inside the repository or managed by
+Stow.
 
 `./bootstrap` restores the lock with the current `skills` CLI. To restore it
 manually, run the same command from a temporary directory containing a copy of

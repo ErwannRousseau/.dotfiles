@@ -138,6 +138,8 @@ brew 'symfony-cli/tap/symfony-cli', trusted: true
 brew 'thezoraiz/ascii-image-converter/ascii-image-converter', trusted: true
 # Highlight clicks anywhere on your Mac for live demos
 cask 'aurorascharff/clicklight/clicklight'
+# OpenAI's official ChatGPT desktop app, including Codex
+cask 'chatgpt'
 # OpenAI's coding agent that runs in your terminal
 cask 'codex'
 cask 'font-jetbrains-mono-nerd-font'
@@ -150,8 +152,11 @@ cask 'karabiner-elements'
 cask 'ngrok'
 # Replacement for Docker Desktop
 cask 'orbstack'
+cask 'raycast'
 # Move and resize windows using keyboard shortcuts or snap areas
 cask 'rectangle'
+# Team communication and collaboration software
+cask 'slack'
 # Open-source code editor
 cask 'visual-studio-code'
 # OpenJDK distribution from Azul

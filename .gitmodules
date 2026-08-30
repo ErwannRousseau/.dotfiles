@@ -1,0 +1,9 @@
+[submodule "packages/shell/.config/oh-my-zsh/custom/plugins/bun"]
+	path = packages/shell/.config/oh-my-zsh/custom/plugins/bun
+	url = https://github.com/ntnyq/omz-plugin-bun.git
+[submodule "packages/shell/.config/oh-my-zsh/custom/plugins/pnpm"]
+	path = packages/shell/.config/oh-my-zsh/custom/plugins/pnpm
+	url = https://github.com/ntnyq/omz-plugin-pnpm.git
+[submodule "packages/shell/.config/oh-my-zsh/custom/plugins/fzf-tab"]
+	path = packages/shell/.config/oh-my-zsh/custom/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab

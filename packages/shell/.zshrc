@@ -1,5 +1,6 @@
 # ------- oh-my-zsh main path -------
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.config/oh-my-zsh/custom"
 
 # ------- Completions setup BEFORE sourcing oh-my-zsh -------
 # - Homebrew completions
@@ -52,7 +53,7 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # ------- User configuration -------
-export ARCHFLAGS="-arch arm64"
+export ARCHFLAGS="-arch $(uname -m)"
 
 # ------- User binaries -------
 case ":$PATH:" in
@@ -78,7 +79,7 @@ alias awake='caffeinate -ims'
 alias awake-4h='caffeinate -dims -t 14400'
 alias awake-8h='caffeinate -dims -t 28800'
 
-for file in "$HOME"/.config/shell/aliases/*.zsh; do
+for file in "$HOME"/.config/shell/aliases/*.zsh(N); do
   [ -r "$file" ] && source "$file"
 done
 
@@ -109,12 +110,15 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#9bbdfd"
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
+# ------- zsh-vi-mode -------
+source "$HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh" 2>/dev/null || true
+
 # ------- starship prompt terminal -------
 eval "$(starship init zsh)"
 
 # ------- zsh-syntax-highlighting -------
 # Must be the LAST thing sourced
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null || true
+source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null || true
 
 
 # ------- bun -------
@@ -124,9 +128,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # ------- Worktrunk -------
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
-
-# ------- git machette -------
-source <(git machete completion zsh)
 
 # sentry
 export PATH="$HOME/.sentry/bin:$PATH"
@@ -142,4 +143,4 @@ if output="$(mole completion zsh 2>/dev/null)"; then eval "$output"; fi
 
 # Secrets
 
-source ~/.secrets/slides.env
+[[ -r "$HOME/.secrets/slides.env" ]] && source "$HOME/.secrets/slides.env"

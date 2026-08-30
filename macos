@@ -10,7 +10,7 @@ if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
   red=$'\033[31m'
   reset=$'\033[0m'
 else
-  blue= green= red= reset=
+  blue='' green='' red='' reset=''
 fi
 
 expect() {

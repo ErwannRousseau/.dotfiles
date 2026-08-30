@@ -3,7 +3,7 @@
 GNU Stow manages the shared configuration. The repository lives at `~/dotfiles`.
 
 ```bash
-git clone git@github.com:ErwannRousseau/.dotfiles.git ~/dotfiles
+git clone git@github.com:ErwannRousseau/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap
 ```
@@ -21,16 +21,16 @@ package bundle, macOS defaults, Finder-to-Neovim associations, and Stow links.
 ```
 
 Most files under `packages/` are symlinked into the home directory. Agent skill
-restoration is documented in [docs/skills.md](docs/skills.md).
-Secrets, caches, databases, and local application state stay outside the
-repository.
+restoration is documented in [docs/skills.md](docs/skills.md). Secrets, caches,
+databases, and local application state stay outside the repository.
 
 `./macos` also builds `~/Applications/Neovim Finder.app`, registers it with
 LaunchServices, and makes supported text, configuration, and dotfiles open in
 Neovim through Ghostty. It requires a one-time macOS Automation authorization
 for Neovim Finder to control Ghostty.
 
-On an existing Mac, use `./link --adopt` once to take its current configuration into the clone, then review the resulting Git diff.
+On an existing Mac, use `./link --adopt` once to take its current configuration
+into the clone, then review the resulting Git diff.
 
 `Brewfile` is shared. Add machine-only packages to the ignored `Brewfile.local`.
 
@@ -47,8 +47,8 @@ cp ~/.gitconfig.local.example ~/.gitconfig.local
 Set your name, email, and public signing-key path in `~/.gitconfig.local`.
 
 VS Code settings, keybindings, snippets, and extension IDs are versioned. Its
-history and workspace state remain local. Karabiner's `karabiner.json`
-remains local because it contains per-device identifiers.
+history and workspace state remain local. Karabiner's `karabiner.json` remains
+local because it contains per-device identifiers.
 
-The [Mac reset guide](docs/mac-reset.md) documents the Codex and `age`
-continuity process.
+The [Mac reset guide](docs/mac-reset.md) documents the encrypted continuity
+archive for Codex, Raycast, and Karabiner.

@@ -1,2 +1,0 @@
-# Machine-only environment variables and aliases belong in local.zsh.
-export EXA_API_KEY="your-exa-api-key-here"
