@@ -1,8 +1,8 @@
-@/Users/erwannrousseau/.codex/RTK.md
+@RTK.md
 
-@/Users/erwannrousseau/.codex/SEMBLE.md
+@SEMBLE.md
 
-@/Users/erwannrousseau/.codex/GRAFT.md
+@GRAFT.md
 
 ## Tool preferences
 

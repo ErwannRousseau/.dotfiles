@@ -17,6 +17,8 @@ The script installs Homebrew when absent, checks Stow conflicts, installs the
 pinned NVM and Node versions before the Brewfile, applies macOS defaults, links
 the dotfiles, then runs `./check`. Homebrew auto-update and optional bundle
 upgrades are disabled; required dependencies may still be updated.
+The macOS account short name can differ; paths use `$HOME` and Codex machine
+state is regenerated locally.
 
 ## Commands
 

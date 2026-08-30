@@ -186,6 +186,9 @@ cd ~/dotfiles
 exec zsh -l
 ```
 
+The account short name can be different from the old Mac; the dotfiles use
+`$HOME` and regenerate machine-local Codex state.
+
 Retrieve the private identity from iCloud Keychain and write it to
 `~/.config/age/key.txt` with mode `600`, then restore the archive:
 
