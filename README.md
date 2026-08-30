@@ -13,18 +13,19 @@ newer. Run it as your normal user, never with `sudo`, from an interactive
 terminal with internet access and enough disk space. It requires Xcode Command
 Line Tools; install them once with `xcode-select --install`.
 
-The script installs Homebrew when absent, checks Stow conflicts before the main
-setup, installs missing Brewfile entries without upgrading existing ones,
-installs the pinned NVM and Node versions, applies macOS defaults, links the
-dotfiles, then runs `./check`.
+The script installs Homebrew when absent, checks Stow conflicts, installs the
+pinned NVM and Node versions before the Brewfile, applies macOS defaults, links
+the dotfiles, then runs `./check`. Homebrew auto-update and optional bundle
+upgrades are disabled; required dependencies may still be updated.
 
 ## Commands
 
 ```bash
-./link  # refresh symlinks
-./link --check # detect conflicts without changing files
-./check # status: Homebrew, Stow, macOS defaults
-./macos # reapply macOS defaults
+./link                 # preflight, then refresh symlinks
+./link --check         # detect conflicts without changing files
+./link --adopt         # preflight, then adopt existing files
+./check                # validate the complete managed installation
+./macos                # reapply macOS defaults
 ```
 
 Most files under `packages/` are symlinked into the home directory. Agent skill
@@ -36,13 +37,14 @@ LaunchServices, and makes supported text, configuration, and dotfiles open in
 Neovim through Ghostty. It requires a one-time macOS Automation authorization
 for Neovim Finder to control Ghostty.
 
-After bootstrap, launch Karabiner-Elements, OrbStack, Ghostty, VS Code, Raycast,
-and Neovim Finder once. Complete the macOS permission, system-extension, and
-login prompts each app displays. Bootstrap installs these apps but cannot grant
-their user-consent permissions.
+After bootstrap, run `exec zsh -l` or open a new terminal so Homebrew, NVM, and
+the user-local binary directory are loaded. Then launch Karabiner-Elements,
+OrbStack, Ghostty, VS Code, Raycast, and Neovim Finder once. Complete the macOS
+permission, system-extension, and login prompts each app displays. Bootstrap
+installs these apps but cannot grant their user-consent permissions.
 
-On an existing Mac, use `./link --adopt` once to take its current configuration
-into the clone, then review the resulting Git diff.
+On an existing Mac, if the bootstrap preflight reports conflicts, run
+`./link --adopt`, review the resulting Git diff, then rerun `./bootstrap`.
 
 `Brewfile` is shared. Add machine-only packages to the ignored `Brewfile.local`.
 

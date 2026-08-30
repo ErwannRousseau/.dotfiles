@@ -20,7 +20,6 @@
 				<string>json</string>
 				<string>toml</string>
 				<string>ini</string>
-				<string>conf</string>
 				<string>xml</string>
 				<string>csv</string>
 				<string>log</string>

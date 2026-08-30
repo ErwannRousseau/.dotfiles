@@ -24,16 +24,16 @@ bundle="$workspace/$application_name.app"
 defaults_tool="$workspace/set-neovim-defaults"
 
 osacompile -o "$bundle" "$source_dir/Neovim Finder.applescript"
-plutil -replace CFBundleIdentifier -string "$bundle_id" "$bundle/Contents/Info.plist"
-plutil -replace CFBundleName -string "$application_name" "$bundle/Contents/Info.plist"
-plutil -replace NSAppleEventsUsageDescription -string 'Neovim Finder needs to control Ghostty to open files in Neovim.' "$bundle/Contents/Info.plist"
-plutil -extract CFBundleDocumentTypes xml1 -o "$workspace/document-types.plist" "$source_dir/Info.plist"
-/usr/libexec/PlistBuddy -c 'Delete :CFBundleDocumentTypes' -c "Import :CFBundleDocumentTypes $workspace/document-types.plist" "$bundle/Contents/Info.plist"
+for plist_key in CFBundleIdentifier CFBundleName NSAppleEventsUsageDescription CFBundleDocumentTypes; do
+	plutil -remove "$plist_key" "$bundle/Contents/Info.plist" 2>/dev/null || true
+done
+/usr/libexec/PlistBuddy -c "Merge $source_dir/Info.plist" "$bundle/Contents/Info.plist"
 codesign --force --sign - "$bundle"
 codesign --verify --deep --strict "$bundle"
 swiftc "$source_dir/set-neovim-defaults.swift" -framework CoreServices -framework Foundation -o "$defaults_tool"
 
 if [[ "$mode" == '--build-check' ]]; then
+	[[ "$(plutil -type CFBundleDocumentTypes "$bundle/Contents/Info.plist")" == array ]]
 	print 'Neovim Finder build: OK'
 	exit 0
 fi
@@ -52,7 +52,9 @@ if [[ -e "$destination" || -L "$destination" ]]; then
 		print -u2 "Refusing to replace unexpected app: $destination"
 		exit 1
 	}
+	rm -rf "$destination"
 fi
+
 ditto "$bundle" "$destination"
 codesign --force --sign - "$destination"
 "$launcher" -f "$destination"

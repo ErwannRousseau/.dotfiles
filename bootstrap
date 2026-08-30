@@ -45,6 +45,14 @@ if ! xcode-select -p >/dev/null 2>&1; then
   exit 1
 fi
 
+bootstrap_tmp="$(mktemp -d)"
+trap 'rm -rf "$bootstrap_tmp"' EXIT
+
+if ! command -v brew >/dev/null 2>&1; then
+  [[ -x /opt/homebrew/bin/brew ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+  [[ -x /usr/local/bin/brew ]] && eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 if ! command -v brew >/dev/null 2>&1; then
   if [[ ! -t 0 && ${NONINTERACTIVE:-} != 1 ]]; then
     error 'Homebrew installation needs an interactive terminal or NONINTERACTIVE=1'
@@ -63,6 +71,8 @@ if ! command -v brew >/dev/null 2>&1; then
   fi
 fi
 
+export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_BUNDLE_NO_UPGRADE=1
+
 if ! command -v stow >/dev/null 2>&1; then
   info 'Installing GNU Stow for the link preflight'
   brew install stow
@@ -70,6 +80,36 @@ fi
 
 info 'Checking dotfile link conflicts'
 "$repo_dir/link" --check
+
+nvm_release='v0.40.7'
+nvm_installer_sha256='066ce4eaf4d78eaa6410433bc9ba58faaba646157cbbed6109153e6c24c5f8a5'
+node_release='v24.15.0'
+nvm_installer="$bootstrap_tmp/nvm-install.sh"
+info "Installing NVM $nvm_release"
+curl --proto '=https' --tlsv1.2 -fsSL \
+  "https://raw.githubusercontent.com/nvm-sh/nvm/$nvm_release/install.sh" -o "$nvm_installer"
+if [[ "$(shasum -a 256 "$nvm_installer" | awk '{print $1}')" != "$nvm_installer_sha256" ]]; then
+  error 'NVM installer checksum mismatch'
+  exit 1
+fi
+export NVM_DIR="$HOME/.nvm"
+mkdir -p "$NVM_DIR"
+METHOD=script PROFILE=/dev/null NVM_INSTALL_VERSION="$nvm_release" /bin/bash "$nvm_installer"
+# shellcheck source=/dev/null
+. "$NVM_DIR/nvm.sh"
+if [[ "$(nvm --version)" != "${nvm_release#v}" ]]; then
+  error "Unexpected NVM version: $(nvm --version)"
+  exit 1
+fi
+
+info "Installing default NVM Node $node_release"
+nvm install "${node_release#v}"
+nvm alias default "${node_release#v}"
+nvm use --silent default
+if [[ "$(node --version)" != "$node_release" ]]; then
+  error "Unexpected Node version: $(node --version)"
+  exit 1
+fi
 
 info 'Installing Brewfile packages'
 brew bundle --no-upgrade --file="$repo_dir/Brewfile"
@@ -102,37 +142,6 @@ elif [[ "$(git -C "$ohmyzsh_dir" rev-parse HEAD)" != "$ohmyzsh_commit" ]]; then
   info 'Restoring pinned Oh My Zsh revision'
   git -C "$ohmyzsh_dir" fetch origin
   git -C "$ohmyzsh_dir" checkout --detach "$ohmyzsh_commit"
-fi
-
-bootstrap_tmp="$(mktemp -d)"
-trap 'rm -rf "$bootstrap_tmp"' EXIT
-
-nvm_release='v0.40.7'
-nvm_installer="$bootstrap_tmp/nvm-install.sh"
-nvm_installer_sha256='066ce4eaf4d78eaa6410433bc9ba58faaba646157cbbed6109153e6c24c5f8a5'
-info "Installing NVM $nvm_release"
-curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$nvm_release/install.sh" -o "$nvm_installer"
-if [[ "$(shasum -a 256 "$nvm_installer" | awk '{print $1}')" != "$nvm_installer_sha256" ]]; then
-  error 'NVM installer checksum mismatch'
-  exit 1
-fi
-export NVM_DIR="$HOME/.nvm"
-mkdir -p "$NVM_DIR"
-METHOD=script PROFILE=/dev/null NVM_INSTALL_VERSION="$nvm_release" /bin/bash "$nvm_installer"
-# shellcheck source=/dev/null
-. "$NVM_DIR/nvm.sh"
-if [[ "$(nvm --version)" != "${nvm_release#v}" ]]; then
-  error "Unexpected NVM version: $(nvm --version)"
-  exit 1
-fi
-
-info 'Installing default NVM Node'
-nvm install 24.15.0
-nvm alias default 24.15.0
-nvm use --silent default
-if [[ "$(node --version)" != v24.15.0 ]]; then
-  error "Unexpected Node version: $(node --version)"
-  exit 1
 fi
 
 info 'Restoring agent skills'

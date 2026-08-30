@@ -16,8 +16,9 @@ logs, or worktrees. They are restored or reinstalled separately.
 ## Developer tools
 
 `./bootstrap` installs official NVM `v0.40.7`, Node `v24.15.0` as the default,
-Bun, pnpm, Yarn, Semble, Graft, and Agent Device. It installs missing Brewfile
-entries without upgrading packages already present.
+Bun, pnpm, Yarn, Semble, Graft, and Agent Device. Homebrew auto-update and
+optional bundle upgrades are disabled; required dependencies may still be
+updated.
 
 ## Codex configuration and plugins
 
@@ -182,6 +183,7 @@ because the SSH key has not been restored yet:
 git clone https://github.com/ErwannRousseau/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./bootstrap
+exec zsh -l
 ```
 
 Retrieve the private identity from iCloud Keychain and write it to
