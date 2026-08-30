@@ -2,6 +2,8 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_skills_lock="$repo_dir/packages/agents/.agents/skills-lock.json"
+host_skills_lock="$HOME/.agents/.skill-lock.json"
 status=0
 
 if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
@@ -96,10 +98,10 @@ else
 fi
 
 label 'Skills lock'
-if [[ -L "$HOME/.agents/skills-lock.json" && "$HOME/.agents/skills-lock.json" -ef "$repo_dir/packages/agents/.agents/skills-lock.json" ]]; then
+if [[ -L "$repo_skills_lock" && -f "$host_skills_lock" && "$repo_skills_lock" -ef "$host_skills_lock" ]]; then
   ok
 else
-  bad 'missing'
+  bad 'missing or out of sync'
   status=1
 fi
 

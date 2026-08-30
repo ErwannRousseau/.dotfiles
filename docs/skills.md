@@ -1,16 +1,15 @@
 # Agent skills
 
-The repository versions only the source lock at
-`packages/agents/.agents/skills-lock.json`. The host path
-`~/.agents/skills-lock.json` is a symlink to that repository file, so edits made
-through either path affect the same file. Skill files are restored directly into
-`~/.agents/skills`; they are never generated inside the repository or managed by
-Stow.
+The host lock is the source of truth:
+`~/.agents/.skill-lock.json`. The repository path
+`packages/agents/.agents/skills-lock.json` is a symlink to that host file, so
+the repository always exposes the current host lock. `./link` maintains the
+compatibility link `~/.agents/skills-lock.json` back through the repository
+package; that link is not the source of truth.
 
-`./bootstrap` restores the lock with the current `skills` CLI. To restore it
-manually, run the same command from a temporary directory containing a copy of
-the lock, then copy the generated `.agents/skills` directory into
-`~/.agents/skills`.
+Skill files are restored directly into `~/.agents/skills`; they are never
+generated inside the repository or managed by Stow.
 
-The host directory is kept as a real directory so edits made there remain local
-to the host. Updating the lock and running bootstrap refreshes its contents.
+`./bootstrap` reads the host lock, restores it with the current `skills` CLI in
+a temporary directory, then copies the generated `.agents/skills` directory
+into `~/.agents/skills`.

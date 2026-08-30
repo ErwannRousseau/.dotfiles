@@ -68,7 +68,12 @@ nvm alias default 24.15.0
 info 'Restoring agent skills'
 skills_tmp="$(mktemp -d)"
 trap 'find "$skills_tmp" -depth -type f -delete; find "$skills_tmp" -depth -type d -empty -delete' EXIT
-cp "$repo_dir/packages/agents/.agents/skills-lock.json" "$skills_tmp/skills-lock.json"
+host_skills_lock="$HOME/.agents/.skill-lock.json"
+if [[ ! -f "$host_skills_lock" ]]; then
+  error "Missing host skills lock: $host_skills_lock"
+  exit 1
+fi
+cp "$host_skills_lock" "$skills_tmp/skills-lock.json"
 (cd "$skills_tmp" && npx --yes skills experimental_install)
 skills_dir="$HOME/.agents/skills"
 if [[ -L "$skills_dir" ]]; then
