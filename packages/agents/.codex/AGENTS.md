@@ -1,8 +1,8 @@
-@RTK.md
+@~/.codex/RTK.md
 
-@SEMBLE.md
+@~/.codex/SEMBLE.md
 
-@GRAFT.md
+@~/.codex/GRAFT.md
 
 ## Tool preferences
 

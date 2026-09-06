@@ -2,7 +2,6 @@ tap 'anomalyco/tap', 'https://github.com/anomalyco/homebrew-tap.git', trusted: {
 tap 'aurorascharff/clicklight', 'https://github.com/aurorascharff/ClickLight'
 tap 'getsentry/xcodebuildmcp', trusted: true
 tap 'hashicorp/tap'
-tap 'homebrew/services'
 tap 'oven-sh/bun'
 tap 'resend/cli'
 tap 'shivammathur/php', trusted: { formulae: ['php@8.3'] }

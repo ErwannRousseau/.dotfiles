@@ -1,4 +1,4 @@
-model_context_window = 250000
+model_context_window = 272000
 model_auto_compact_token_limit = 200000
 model = "gpt-5.6-luna"
 personality = "pragmatic"
@@ -7,9 +7,10 @@ approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
 file_opener = "vscode"
 network_access = "enabled"
-notify = [ "/bin/sh", "-c", "exec \"$HOME/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient\" turn-ended \"$@\"", "codex-notify" ]
-model_reasoning_effort = "max"
+model_reasoning_effort = "low"
 service_tier = "default"
+
+notify = ["/Users/r2/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended", "--previous-notify", "[\"\\/bin\\/sh\",\"-c\",\"exec \\\"$HOME\\/.codex\\/computer-use\\/Codex Computer Use.app\\/Contents\\/SharedSupport\\/SkyComputerUseClient.app\\/Contents\\/MacOS\\/SkyComputerUseClient\\\" turn-ended \\\"$@\\\"\",\"codex-notify\"]"]
 
 [agents]
 enabled = true
@@ -34,6 +35,10 @@ enabled-reasoning-efforts = ["low", "medium", "high", "xhigh", "ultra", "max"]
 git-pull-request-merge-method = "squash"
 reviewDelivery = "detached"
 realtimeVoiceScreenContextEnabled = true
+ambient-suggestions-enabled = false
+worktree-upstream-refresh-mode = "never"
+projectlessWorkspaceRoot = "/Users/r2/Developer/Codex"
+toys-confetti-enabled = true
 
 [desktop.open-in-target-preferences]
 global = "ghostty"
@@ -91,6 +96,14 @@ last_revision = "4d44f877c5f6b506c55a153548e7dea3139fe229"
 source_type = "git"
 source = "https://github.com/mksglu/context-mode.git"
 
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/Users/r2/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = "/Users/r2/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
 [mcp_servers.semble]
 command = "uvx"
 args = ["--from", "semble[mcp]==0.5.5", "semble"]
@@ -100,8 +113,9 @@ command = "graft"
 args = ["mcp"]
 
 [mcp_servers.computer-use]
-command = "/bin/sh"
-args = ["-c", "exec \"$HOME/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient\" mcp"]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
 enabled = false
 
 [mcp_servers.figma]
@@ -119,14 +133,17 @@ startup_timeout_sec = 120
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
 NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/r2/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/r2/.codex"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-BROWSER_USE_TINYSKY_ENABLED = "0"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
-NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.825.32147"
+BROWSER_USE_CODEX_APP_VERSION = "26.901.41600"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/r2/.codex/plugins/cache/openai-bundled/browser/26.901.41600/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "/Users/r2/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.playwright]
@@ -144,10 +161,6 @@ bearer_token_env_var = "SLIDES_API_KEY"
 [mcp_servers.XcodeBuildMCP]
 command = "xcodebuildmcp"
 args = ["mcp"]
-
-[mcp_servers.cua_repl]
-command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
-enabled = false
 
 # Plugins
 
@@ -202,8 +215,143 @@ enabled = true
 [plugins."computer-use@openai-bundled"]
 enabled = true
 
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
 [shell_environment_policy.set]
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"
+
+[projects."/Users/r2/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/r2/KNP/defimedoc-app"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Developer/Codex/2026-08-31/est-ce-que-tu-as-acc"]
+trust_level = "trusted"
+
+[projects."/Users/r2/KNP/defimedoc"]
+trust_level = "trusted"
+
+[projects."/Users/r2/.config/nvim"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/reply-to-maya-s-message-on"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-2"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-3"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-4"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-5"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-6"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-7"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-8"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-9"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-10"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-11"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-12"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-13"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-14"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-15"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-16"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-17"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-18"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-19"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-20"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-21"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-22"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-23"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-24"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-25"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-26"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-27"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-28"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-29"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-30"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-31"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-32"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-33"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-34"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Documents/Codex/2026-09-04/i-sold-out-of-these-3-35"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Developer/solenn website/website"]
+trust_level = "trusted"
+
+[projects."/Users/r2/Developer/github/portfolio"]
+trust_level = "trusted"
 
 [hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]
 trusted_hash = "sha256:204ada337d8eb85c3bb9f72feed108fca8bcd74a1a55251078f34b2b4224fbd9"

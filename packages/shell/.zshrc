@@ -111,6 +111,8 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 # ------- zsh-vi-mode -------
 source "$HOMEBREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh" 2>/dev/null || true
+# zsh-vi-mode initializes lazily and otherwise replaces fzf's Ctrl-R binding.
+zvm_after_init_commands+=( "bindkey -M viins ^R fzf-history-widget" )
 
 # ------- starship prompt terminal -------
 eval "$(starship init zsh)"
