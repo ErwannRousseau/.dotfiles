@@ -7,7 +7,7 @@ approvals_reviewer = "user"
 sandbox_mode = "danger-full-access"
 file_opener = "vscode"
 network_access = "enabled"
-model_reasoning_effort = "low"
+model_reasoning_effort = "max"
 service_tier = "default"
 
 notify = ["/Users/r2/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended", "--previous-notify", "[\"\\/bin\\/sh\",\"-c\",\"exec \\\"$HOME\\/.codex\\/computer-use\\/Codex Computer Use.app\\/Contents\\/SharedSupport\\/SkyComputerUseClient.app\\/Contents\\/MacOS\\/SkyComputerUseClient\\\" turn-ended \\\"$@\\\"\",\"codex-notify\"]"]
@@ -39,6 +39,7 @@ ambient-suggestions-enabled = false
 worktree-upstream-refresh-mode = "never"
 projectlessWorkspaceRoot = "/Users/r2/Developer/Codex"
 toys-confetti-enabled = true
+keepRemoteControlAwakeWhilePluggedIn = true
 
 [desktop.open-in-target-preferences]
 global = "ghostty"
@@ -141,8 +142,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.901.41600"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/r2/.codex/plugins/cache/openai-bundled/browser/26.901.41600/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.901.51231"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/r2/.codex/plugins/cache/openai-bundled/browser/26.901.51231/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/r2/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -351,6 +352,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/r2/Developer/github/portfolio"]
+trust_level = "trusted"
+
+[projects."/Users/r2/KNP/pedag-eau"]
 trust_level = "trusted"
 
 [hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]
