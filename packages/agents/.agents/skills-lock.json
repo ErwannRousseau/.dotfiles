@@ -19,15 +19,6 @@
       "installedAt": "2026-04-17T10:44:02.395Z",
       "updatedAt": "2026-09-07T15:06:43.980Z"
     },
-    "caveman-compress": {
-      "source": "JuliusBrussee/caveman",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/JuliusBrussee/caveman.git",
-      "skillPath": "skills/caveman-compress/SKILL.md",
-      "skillFolderHash": "e95dd5911da8896a142d1bf28e3b573c37e5deed",
-      "installedAt": "2026-04-17T15:17:30.637Z",
-      "updatedAt": "2026-09-07T15:06:46.106Z"
-    },
     "eas-update-insights": {
       "source": "expo/skills",
       "sourceType": "github",
@@ -198,15 +189,6 @@
       "installedAt": "2026-01-30T08:07:31.948Z",
       "updatedAt": "2026-05-07T13:41:12.439Z"
     },
-    "worktrunk": {
-      "source": "max-sixty/worktrunk",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/max-sixty/worktrunk.git",
-      "skillPath": "skills/worktrunk/SKILL.md",
-      "skillFolderHash": "436621379bccf9b15d658dfe0a476a52d1258eed",
-      "installedAt": "2026-03-03T10:38:31.199Z",
-      "updatedAt": "2026-09-07T15:07:39.792Z"
-    },
     "react-native-unistyles-v3": {
       "source": "jpudysz/react-native-unistyles",
       "sourceType": "github",
@@ -339,15 +321,6 @@
       "skillFolderHash": "051f2d29831240a2b81d41ca0983e721d452e58f",
       "installedAt": "2026-06-24T14:56:20.403Z",
       "updatedAt": "2026-08-24T10:53:01.209Z"
-    },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "82def67855a0d2aad7794207951820fa5422fdb0",
-      "installedAt": "2026-06-24T16:56:57.899Z",
-      "updatedAt": "2026-09-07T15:07:44.858Z"
     },
     "ask-matt": {
       "source": "mattpocock/skills",

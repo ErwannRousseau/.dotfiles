@@ -121,9 +121,11 @@ enabled = false
 
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
+enabled = false
 
 [mcp_servers.n8n-mcp]
 url = "https://n8n.knpnet.net/mcp-server/http"
+enabled = false
 
 [mcp_servers.node_repl]
 args = []
@@ -151,17 +153,21 @@ CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 command = "npx"
 args = ["@playwright/mcp@latest"]
 startup_timeout_sec = 15.0
+enabled = false
 
 [mcp_servers.notion]
 url = "https://mcp.notion.com/mcp"
+enabled = false
 
 [mcp_servers.slides]
 url = "https://mcp.slides.com/"
 bearer_token_env_var = "SLIDES_API_KEY"
+enabled = false
 
 [mcp_servers.XcodeBuildMCP]
 command = "xcodebuildmcp"
 args = ["mcp"]
+enabled = false
 
 # Plugins
 
@@ -190,7 +196,7 @@ enabled = true
 enabled = true
 
 [plugins."n8n-skills@n8n-io"]
-enabled = true
+enabled = false
 
 [plugins."pdf@openai-primary-runtime"]
 enabled = true
@@ -248,6 +254,101 @@ trust_level = "trusted"
 
 [projects."/Users/r2/Developer/github/skills"]
 trust_level = "trusted"
+
+[projects."/Users/r2/Developer/codex-astra-luna-orchestrator"]
+trust_level = "trusted"
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/apollo-client/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/app-icon/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/app-store-preflight-skills/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/app-store-screenshots/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/ask-matt/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/aso-audit/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/eas-update-insights/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/expo-ui/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/migrate-to-static-config/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/migrate-to-shoehorn/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/react-native-unistyles-v3/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/react-devtools/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/tamagui/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/upgrading-react-native/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/upgrade-react-navigation/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/vercel-composition-patterns/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.agents/skills/agent-device/SKILL.md"
+enabled = false
+
+[apps.asdk_app_69a1d78e929881919bba0dbda1f6436d]
+enabled = false
+
+[apps.asdk_app_69c18c28f1188191bf5b8445c4ab0a2e]
+enabled = false
+
+[apps.asdk_app_69ceae6d8d78819192e59f76b8e170b5]
+enabled = false
+
+[apps.asdk_app_6a0faef988b48191b843bac5cd170a9e]
+enabled = false
+
+[apps.asdk_app_6a351e09b3608191a7451c029628a15f]
+enabled = false
+
+[apps.connector_20205bf7d4e99a89d7154bb849718324]
+enabled = false
+
+[apps.connector_68df038e0ba48191908c8434991bbac2]
+enabled = false
+
+[apps.connector_openai_hotline]
+enabled = false
 
 [hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]
 trusted_hash = "sha256:204ada337d8eb85c3bb9f72feed108fca8bcd74a1a55251078f34b2b4224fbd9"
