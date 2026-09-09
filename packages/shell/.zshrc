@@ -121,6 +121,8 @@ eval "$(starship init zsh)"
 # Must be the LAST thing sourced
 source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null || true
 
+# ------- Go ------
+export PATH="$HOME/go/bin:$PATH"
 
 # ------- bun -------
 export BUN_INSTALL="$HOME/.bun"
