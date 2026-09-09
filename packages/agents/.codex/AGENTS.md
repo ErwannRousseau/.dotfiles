@@ -82,3 +82,17 @@ For mobile QA:
 - For React Native frontend QA, `agent-device` should be the source of truth for
   navigation, taps, text input, screenshots, visual validation, user-flow
   testing, bug reproduction, and fix verification.
+
+## Astra orchestrator
+
+For complex coding tasks, use the `orchestrate` skill when its trigger
+conditions match.
+
+The root agent owns architecture, decomposition, integration, and final
+verification. Prefer specialized subagents for bounded exploration,
+implementation, testing, review, and technical research.
+
+Do not delegate trivial work merely for parallelism. Do not let multiple
+implementation agents edit the same files without explicit ownership
+boundaries. User instructions always take precedence over this orchestration
+policy.

@@ -2,9 +2,9 @@ model_context_window = 272000
 model_auto_compact_token_limit = 200000
 model = "gpt-5.6-luna"
 personality = "pragmatic"
-approval_policy = "never"
+approval_policy = "on-request"
 approvals_reviewer = "user"
-sandbox_mode = "danger-full-access"
+sandbox_mode = "workspace-write"
 file_opener = "vscode"
 network_access = "enabled"
 model_reasoning_effort = "max"
@@ -16,7 +16,8 @@ notify = ["/Users/r2/.codex/computer-use/Codex Computer Use.app/Contents/SharedS
 enabled = true
 max_depth = 2
 default_subagent_model = "gpt-5.6-luna"
-default_subagent_reasoning_effort = "max"
+default_subagent_reasoning_effort = "medium"
+max_concurrent_threads_per_session = 4
 
 [desktop]
 selected-avatar-id = "custom:mister-kind"
@@ -174,12 +175,6 @@ enabled = false
 [plugins."browser@openai-bundled"]
 enabled = true
 
-[plugins."build-web-apps@openai-curated"]
-enabled = true
-
-[plugins."chrome@openai-bundled"]
-enabled = true
-
 [plugins."codex-security@openai-curated"]
 enabled = true
 
@@ -219,13 +214,13 @@ enabled = true
 [plugins."codex-app-tools@openai-bundled"]
 enabled = true
 
-[plugins."computer-use@openai-bundled"]
+[plugins."sites@openai-bundled"]
 enabled = true
 
 [plugins."unified-computer-use@openai-bundled"]
 enabled = true
 
-[plugins."sites@openai-bundled"]
+[plugins."computer-use@openai-bundled"]
 enabled = true
 
 [shell_environment_policy.set]
@@ -258,73 +253,11 @@ trust_level = "trusted"
 [projects."/Users/r2/Developer/codex-astra-luna-orchestrator"]
 trust_level = "trusted"
 
-[[skills.config]]
-path = "/Users/r2/.agents/skills/apollo-client/SKILL.md"
-enabled = false
+[projects."/Users/r2/Developer/dromeis"]
+trust_level = "trusted"
 
-[[skills.config]]
-path = "/Users/r2/.agents/skills/app-icon/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/app-store-preflight-skills/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/app-store-screenshots/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/ask-matt/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/aso-audit/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/eas-update-insights/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/expo-ui/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/migrate-to-static-config/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/migrate-to-shoehorn/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/react-native-unistyles-v3/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/react-devtools/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/tamagui/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/upgrading-react-native/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/upgrade-react-navigation/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/vercel-composition-patterns/SKILL.md"
-enabled = false
-
-[[skills.config]]
-path = "/Users/r2/.agents/skills/agent-device/SKILL.md"
-enabled = false
+[projects."/Users/r2/Developer/Codex/2026-09-08/qui"]
+trust_level = "trusted"
 
 [apps.asdk_app_69a1d78e929881919bba0dbda1f6436d]
 enabled = false
@@ -350,29 +283,59 @@ enabled = false
 [apps.connector_openai_hotline]
 enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:204ada337d8eb85c3bb9f72feed108fca8bcd74a1a55251078f34b2b4224fbd9"
+[apps.asdk_app_69a089a326dc8191b32a3f2553f5be2c]
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:0:0"]
-trusted_hash = "sha256:83d457f3dd344eae249f2043142eb8e0e4ac1b66c563c64d04c9ca625b3675de"
+[apps.connector_692de805e3ec8191834719067174a384]
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:1:0"]
-trusted_hash = "sha256:702bba6d964e4bd2304c0e70fed2f1d34b2a2dcd41f3555ac20d221975813d65"
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-generate-design/SKILL.md"
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:2:0"]
-trusted_hash = "sha256:ac49703811156675ba251de11de99c4701d79e9dc737a07f0cb7601e523b586e"
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-generate-diagram/SKILL.md"
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:3:0"]
-trusted_hash = "sha256:406e96fc6f9c214c7d6895f9d67468687ddd70a21483f020bfcecabeb89855ab"
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-generate-library/SKILL.md"
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:4:0"]
-trusted_hash = "sha256:4dc2683a194628a133553c181d30706ef08e45b08290675dc1c7dc78422a7316"
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-use/SKILL.md"
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:pre_tool_use:5:0"]
-trusted_hash = "sha256:7afe99fc47879f7edf06986b28d0bf83f220030f352588c612531b166a89e1a0"
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-use-figjam/SKILL.md"
+enabled = false
 
-[hooks.state."n8n-skills@n8n-io:hooks/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:6c00f7897d6df00d8416cb2bba540f48a44dfa0d70bf03966acdbe3bcf25fa3d"
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-use-slides/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-code-connect/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-create-new-file/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-design-to-code/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-implement-motion/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-swiftui/SKILL.md"
+enabled = false
+
+[[skills.config]]
+path = "/Users/r2/.codex/.tmp/plugins/plugins/figma/skills/figma-use-motion/SKILL.md"
+enabled = false
 
 [hooks.state."ponytail@ponytail:hooks/claude-codex-hooks.json:session_start:0:0"]
 trusted_hash = "sha256:5f81d38f47448a1581c08ec877e044d9e04dd6f814dce3f2671f7a8edadd719b"
