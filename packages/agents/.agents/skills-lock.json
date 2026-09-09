@@ -126,15 +126,6 @@
       "installedAt": "2026-05-14T10:31:26.512Z",
       "updatedAt": "2026-09-07T15:10:27.017Z"
     },
-    "turborepo": {
-      "source": "vercel/turborepo",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel/turborepo.git",
-      "skillPath": "skills/turborepo/SKILL.md",
-      "skillFolderHash": "34eaa69f05167f1e1a809c131547a80b83bf8208",
-      "installedAt": "2026-05-08T18:22:12.832Z",
-      "updatedAt": "2026-09-07T15:07:37.410Z"
-    },
     "upgrading-react-native": {
       "source": "callstackincubator/agent-skills",
       "sourceType": "github",
@@ -416,114 +407,6 @@
       "skillFolderHash": "ac92229646fccf7315ae139c37b479b3790617f2",
       "installedAt": "2026-07-09T09:23:30.333Z",
       "updatedAt": "2026-09-07T15:10:27.021Z"
-    },
-    "figma-code-connect": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-code-connect/SKILL.md",
-      "skillFolderHash": "e431043b082872e6f5401e09441d26dc7dbcc788",
-      "installedAt": "2026-07-16T13:44:34.148Z",
-      "updatedAt": "2026-08-03T16:57:32.299Z"
-    },
-    "figma-create-new-file": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-create-new-file/SKILL.md",
-      "skillFolderHash": "53b9fcd422e12aab188f7fa4187e27d483a88864",
-      "installedAt": "2026-07-16T13:44:34.150Z",
-      "updatedAt": "2026-07-16T13:44:34.150Z"
-    },
-    "figma-design-to-code": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-design-to-code/SKILL.md",
-      "skillFolderHash": "80699efd9135e0ef1c17cef81e463b8c2a9a17e6",
-      "installedAt": "2026-07-16T13:44:34.151Z",
-      "updatedAt": "2026-07-16T13:44:34.151Z"
-    },
-    "figma-generate-design": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-generate-design/SKILL.md",
-      "skillFolderHash": "af8ae37cbb87cb7992581af889e470cdcb5b1e81",
-      "installedAt": "2026-07-16T13:44:34.152Z",
-      "updatedAt": "2026-09-07T15:07:46.516Z"
-    },
-    "figma-generate-diagram": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-generate-diagram/SKILL.md",
-      "skillFolderHash": "ba8bc86d449efcaf338fa5c05d33fc16db965475",
-      "installedAt": "2026-07-16T13:44:34.153Z",
-      "updatedAt": "2026-09-07T15:07:48.261Z"
-    },
-    "figma-generate-library": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-generate-library/SKILL.md",
-      "skillFolderHash": "437ca37557a56ce06b11fe1c8f09329b03b33f33",
-      "installedAt": "2026-07-16T13:44:34.154Z",
-      "updatedAt": "2026-09-07T15:07:50.022Z"
-    },
-    "figma-implement-motion": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-implement-motion/SKILL.md",
-      "skillFolderHash": "1d9f167df0074e18ea3261c04d7cc18f5b6cae01",
-      "installedAt": "2026-07-16T13:44:34.155Z",
-      "updatedAt": "2026-07-16T13:44:34.155Z"
-    },
-    "figma-swiftui": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-swiftui/SKILL.md",
-      "skillFolderHash": "35d8650a7027d55865d132e053ac9cce42cc45f7",
-      "installedAt": "2026-07-16T13:44:34.156Z",
-      "updatedAt": "2026-07-16T13:44:34.156Z"
-    },
-    "figma-use": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-use/SKILL.md",
-      "skillFolderHash": "ac4b1d2c1fe65a573fec9e5b6951217084c508e8",
-      "installedAt": "2026-07-16T13:44:34.157Z",
-      "updatedAt": "2026-09-07T15:07:51.700Z"
-    },
-    "figma-use-figjam": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-use-figjam/SKILL.md",
-      "skillFolderHash": "abaf230ac044d7389653905fc574853143dd0d81",
-      "installedAt": "2026-07-16T13:44:34.160Z",
-      "updatedAt": "2026-09-07T15:07:54.662Z"
-    },
-    "figma-use-motion": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-use-motion/SKILL.md",
-      "skillFolderHash": "111935ebaabbd9d86f2fe3f403da2371805257ed",
-      "installedAt": "2026-07-16T13:44:34.162Z",
-      "updatedAt": "2026-07-16T13:44:34.162Z"
-    },
-    "figma-use-slides": {
-      "source": "figma/mcp-server-guide",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
-      "skillPath": "skills/figma-use-slides/SKILL.md",
-      "skillFolderHash": "e335863de3019242f658bbed3d125cb357a70f4d",
-      "installedAt": "2026-07-16T13:44:34.162Z",
-      "updatedAt": "2026-09-07T15:07:56.311Z"
     },
     "aso-audit": {
       "source": "eronred/aso-skills",
